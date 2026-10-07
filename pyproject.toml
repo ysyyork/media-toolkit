@@ -19,6 +19,7 @@ tripimage = "travel_video_editor.image_cli:main"
 [project.optional-dependencies]
 image = ["numpy>=1.26", "Pillow>=10", "opencv-python-headless>=4.9"]
 semantic = ["onnxruntime>=1.17"]
+video-review = ["Pillow>=10"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

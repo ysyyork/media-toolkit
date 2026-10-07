@@ -8,6 +8,7 @@ from .models import load_project
 from .probe import ffprobe
 from .qa import verify_render
 from .render import FFmpegRenderer
+from .source_review import build_source_review
 
 
 def main() -> None:
@@ -17,6 +18,9 @@ def main() -> None:
     actions.add_argument("--probe", action="store_true", help="Print source metadata without rendering")
     actions.add_argument("--qc", action="store_true", help="Verify the existing render and make a review contact sheet")
     actions.add_argument("--preview", action="store_true", help="Render a 720p review copy with Apple VideoToolbox on macOS")
+    actions.add_argument("--source-audit", action="store_true", help="Sample every source video and make paged, timeline-aware contact sheets")
+    parser.add_argument("--sample-interval", type=float, default=2.0, help="Seconds between source-review frames (default: 2)")
+    parser.add_argument("--jobs", type=int, default=4, help="Concurrent source probes and thumbnail decodes (default: 4)")
     args = parser.parse_args()
     project = load_project(args.project)
     if args.probe:
@@ -27,6 +31,12 @@ def main() -> None:
         sheet, notes = verify_render(project)
         print(f"Verified {project.output}")
         print(f"Review sheet: {sheet}")
+        print(f"Panel map: {notes}")
+        return
+    if args.source_audit:
+        sheets, index, notes = build_source_review(project, args.sample_interval, args.jobs)
+        print(f"Reviewed {len(sheets)} contact sheets")
+        print(f"Source index: {index}")
         print(f"Panel map: {notes}")
         return
     if args.preview:

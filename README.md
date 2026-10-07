@@ -74,12 +74,15 @@ Set a project-level `grade_preset` to `summer_film_pop` for a warm, saturated tr
 
 ```sh
 tripcut project.json --probe
+tripcut project.json --source-audit --sample-interval 2 --jobs 4
 tripcut project.json
 tripcut project.json --qc
 tripcut project.json --preview
 ```
 
 Use `--probe` to review clip metadata first. Use `--preview` while adjusting the edit: it renders a 720p review copy and uses Apple VideoToolbox H.264 encoding on macOS, keeping the color and framing filters in the same pipeline. Inspect the contact sheet and play the preview; after approval, render the full-resolution manifest. Set `encoder` to `h264_videotoolbox` and `video_bitrate` to a suitable target such as `45M` for a hardware-encoded final on supported Macs. The default `libx264` uses CPU encoding and CRF quality control; VideoToolbox uses bitrate control, so confirm detail and file size on a short preview before choosing it for delivery. Hardware encoding speeds only the encode stage; current FFmpeg color, scaling, overlays, and transitions still run through software filters.
+
+Install `python3 -m pip install '.[video-review]'` to use `--source-audit`. It samples every source video under `media_root` at the requested interval, attempts VideoToolbox decoding on macOS, and creates paged contact sheets with each source filename, source time, and a `USED`/`UNUSED` marker. The CSV records duration, resolution, codec, capture time, and timeline use. Review unused candidates against the timeline before deciding a shot is best; use the sheets to find moments, then inspect promising clips at full motion and resolution.
 
 A normal render writes to a temporary sibling and renames it into place only after FFmpeg succeeds. It then checks output resolution and duration, decodes the complete export, and creates a contact sheet containing a midpoint from every shot, the midpoint of every transition, and the ending. The adjacent `.txt` file maps each panel to its source clip and timeline time. Open the contact sheet and inspect every panel for exposure, subject visibility, focus, crop, and transition artifacts; then play the full export to check motion and music sync. `--qc` repeats those checks for an existing render without rendering again.
 

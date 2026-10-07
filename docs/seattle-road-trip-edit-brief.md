@@ -27,8 +27,10 @@ Carry this brief into every revision of the Seattle / Olympic / North Cascades t
 
 ## Review and delivery workflow
 
-1. Render a 720p preview first using Apple VideoToolbox H.264 encoding on supported Macs. The FFmpeg color, crop, text, and transition filters still run on CPU.
-2. Inspect every shot midpoint, every transition, opening titles, wildlife, highlights/shadows, and the ending. Play the preview for real motion, framing, and music sync.
-3. Make another preview if any requested visual change is not clearly visible or a shot still feels wrong.
-4. Only after the visual review passes, render the delivery at 3840x2160. Use hardware H.264 encoding at a high bitrate where available, verify the resulting codec/resolution/duration, decode the whole file, and inspect the final review sheet and full-resolution detail frames.
-5. Keep source footage untouched, preserve each revision under a descriptive name, and retain the project manifest alongside the reproducible toolkit workflow.
+1. Inventory every source clip and create a source-audit contact sheet at two-second intervals. Review every page, including clips not yet used, and mark the strongest alternatives for each story beat.
+2. Inspect promising unused candidates at full motion and resolution; use source-audit contact sheets as an index, not as a substitute for watching a clip.
+3. Render a 720p preview first using Apple VideoToolbox H.264 encoding on supported Macs. The FFmpeg color, crop, text, and transition filters still run on CPU.
+4. Inspect every shot midpoint, every transition, opening titles, wildlife, highlights/shadows, and the ending. Play the preview for real motion, framing, and music sync.
+5. Make another preview if any requested visual change is not clearly visible or a shot still feels wrong.
+6. Only after the visual review passes, render the delivery at 3840x2160. Use hardware H.264 encoding at a high bitrate where available, verify the resulting codec/resolution/duration, decode the whole file, and inspect the final review sheet and full-resolution detail frames.
+7. Keep source footage untouched, preserve each revision under a descriptive name, and retain the project manifest alongside the reproducible toolkit workflow.
