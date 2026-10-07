@@ -70,6 +70,10 @@ Set a project-level `grade_preset` to `summer_film_pop` for a warm, saturated tr
 
 `examples/seattle-road-trip.json` and `examples/seattle-road-trip-indie-rock.json` are complete edit recipes with varied pacing, English location slates, a portrait Rainier insert, a Space Needle flyover at night, and a Bellevue aerial. The indie-rock recipe also demonstrates per-shot corrections for an overbright coast, a shadow-heavy mountain pass, and detailed city footage, plus the required-highlight guard. Both reference footage and music that are intentionally not included; place your own files under the configured media folders or edit the paths before rendering.
 
+## Video editing workflow
+
+Use the [video editing playbook](docs/video-editing-playbook.md) for the complete source-audit, shot-selection, grading, preview, visual-QA, and delivery process. The [Seattle road-trip brief](docs/seattle-road-trip-edit-brief.md) records that project's specific creative requirements. Keep the video and image workflows separate.
+
 ## Usage
 
 ```sh

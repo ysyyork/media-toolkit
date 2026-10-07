@@ -34,3 +34,11 @@ Carry this brief into every revision of the Seattle / Olympic / North Cascades t
 5. Make another preview if any requested visual change is not clearly visible or a shot still feels wrong.
 6. Only after the visual review passes, render the delivery at 3840x2160. Use hardware H.264 encoding at a high bitrate where available, verify the resulting codec/resolution/duration, decode the whole file, and inspect the final review sheet and full-resolution detail frames.
 7. Keep source footage untouched, preserve each revision under a descriptive name, and retain the project manifest alongside the reproducible toolkit workflow.
+
+## Review findings from the v11 cut
+
+- The source review covered 102 MP4s with a two-second sampling interval (2,455 sampled frames across 44 contact sheets); finalists were checked at full motion before their ranges were selected.
+- The v11 cut keeps the road-level takeoff from `DJI_20260619185954_0035_D.MP4`, the Space Needle night flyover, Bellevue, Olympic Coast otters and sea stacks, the horizontal bay movement, and the Mount Rainier view.
+- The otter source is distant and has limited fine detail. The edit uses a modest 1.38× push-in and a brighter local grade; do not push farther or claim sharpening restores detail absent from the source.
+- The final sequence holds the Mount Rainier view, then uses the opening five seconds of `DJI_20260621144304_0247_D.MP4` at 1.75× for a quicker Lake Washington aerial reveal. This is a rising/forward reveal, not a strong gimbal tilt-up; the cut description should remain accurate.
+- The delivered v11 render is 3840×2160, 30 fps H.264/AAC, about 64 seconds, encoded with Apple VideoToolbox. The 720p preview uses the same composition and grade for review.
