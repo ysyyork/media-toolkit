@@ -45,7 +45,18 @@
       "transition": "dissolve",
       "transition_duration": 0.18,
       "vertical_layout": "fill",
-      "zoom": 1.0
+      "zoom": 1.0,
+      "grade": {
+        "contrast": 1.12,
+        "brightness": 0.025,
+        "saturation": 1.12,
+        "red": 0.01,
+        "green": 0.012,
+        "blue": -0.01,
+        "gamma": 1.16,
+        "sharpness": 0.18,
+        "curve": "none"
+      }
     },
     {
       "file": "DJI_20260619210335_0069_D.MP4",
@@ -95,7 +106,18 @@
       "location_subtitle": "WASHINGTON",
       "vertical_layout": "fill",
       "location_duration": 2.666666666666667,
-      "zoom": 1.0
+      "zoom": 1.0,
+      "grade": {
+        "contrast": 1.12,
+        "brightness": -0.018,
+        "saturation": 1.12,
+        "red": 0.01,
+        "green": 0.015,
+        "blue": -0.01,
+        "gamma": 0.84,
+        "sharpness": 0.16,
+        "curve": "none"
+      }
     },
     {
       "file": "DJI_20260620163733_0137_D.MP4",
@@ -204,7 +226,18 @@
       "location_title": "SEATTLE WATERFRONT",
       "location_subtitle": "DOWNTOWN & HARBOR",
       "location_duration": 2.477272727272727,
-      "zoom": 1.0
+      "zoom": 1.0,
+      "grade": {
+        "contrast": 1.14,
+        "brightness": 0.004,
+        "saturation": 1.15,
+        "red": 0.01,
+        "green": 0.015,
+        "blue": -0.01,
+        "gamma": 1.02,
+        "sharpness": 0.2,
+        "curve": "none"
+      }
     },
     {
       "file": "DJI_20260621143852_0245_D.MP4",
@@ -212,12 +245,23 @@
       "duration": 4.8,
       "speed": 1.1,
       "transition": "dissolve",
-      "transition_duration": 0.2,
+      "transition_duration": 0.08,
       "location_title": "BELLEVUE",
       "location_subtitle": "EASTSIDE  /  WASHINGTON",
       "location_duration": 3.2,
       "vertical_layout": "fill",
-      "zoom": 1.0
+      "zoom": 1.0,
+      "grade": {
+        "contrast": 1.14,
+        "brightness": 0.004,
+        "saturation": 1.14,
+        "red": 0.01,
+        "green": 0.015,
+        "blue": -0.01,
+        "gamma": 1.02,
+        "sharpness": 0.2,
+        "curve": "none"
+      }
     },
     {
       "file": "DJI_20260621135525_0237_D.MP4",

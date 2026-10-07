@@ -15,15 +15,17 @@ LOOK_PRESETS: dict[str, dict[str, float | str]] = {
         "curve": "none",
     },
     "summer_film_pop": {
-        "contrast": 1.28,
-        "brightness": 0.045,
-        "saturation": 1.24,
-        "red": 0.018,
-        "green": 0.026,
-        "blue": -0.012,
-        "gamma": 0.90,
-        "sharpness": 0.52,
-        "curve": "strong_contrast",
+        # Keep the summer warmth and color while preserving highlight and
+        # shadow detail across mixed daylight footage.
+        "contrast": 1.16,
+        "brightness": 0.012,
+        "saturation": 1.16,
+        "red": 0.015,
+        "green": 0.020,
+        "blue": -0.008,
+        "gamma": 1.0,
+        "sharpness": 0.24,
+        "curve": "medium_contrast",
     },
 }
 
