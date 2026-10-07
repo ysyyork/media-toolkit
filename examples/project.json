@@ -1,0 +1,49 @@
+{
+  "title": "A Summer Journey",
+  "subtitle": "JUNE 2026",
+  "media_root": "../media",
+  "music": "../audio/track.mp3",
+  "output": "../renders/final.mp4",
+  "music_title": "Track title",
+  "music_creator": "Creator name",
+  "music_source": "https://example.com/track",
+  "music_license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+  "music_license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "music_start": 0,
+  "music_volume": 0.42,
+  "threads": 18,
+  "shots": [
+    {
+      "file": "mountains.mp4",
+      "start": 8.0,
+      "duration": 7.0,
+      "speed": 1.0,
+      "grade": {
+        "contrast": 1.1,
+        "brightness": 0.0,
+        "saturation": 1.06,
+        "red": 0.012,
+        "green": 0.008,
+        "blue": -0.018
+      },
+      "transition": "fade",
+      "transition_duration": 0.45
+    },
+    {
+      "file": "lake.mp4",
+      "start": 14.5,
+      "duration": 7.2,
+      "speed": 1.1,
+      "grade": {
+        "contrast": 1.12,
+        "brightness": 0.006,
+        "saturation": 1.08,
+        "red": 0.012,
+        "green": 0.009,
+        "blue": -0.016
+      },
+      "transition": "dissolve",
+      "transition_duration": 0.5
+    }
+  ]
+}
