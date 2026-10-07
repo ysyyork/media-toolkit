@@ -21,12 +21,12 @@ def main() -> None:
     parser.add_argument("--highlight-mask", type=Path, help="Painted grayscale mask for local highlight lift")
     parser.add_argument("--highlight-lightness", type=float, default=0.0,
                         help="Highlight lift in perceptual lightness units; requires --highlight-mask")
-    parser.add_argument("--land-sharpness", type=float, default=3.0,
-                        help="Texture sharpening strength inside land mask (default: 3.0)")
-    parser.add_argument("--water-sharpness", type=float, default=1.1,
-                        help="Gentler texture sharpening strength inside water mask (default: 1.1)")
-    parser.add_argument("--detail-radius", type=float, default=1.4,
-                        help="Fine-detail scale in pixels (default: 1.4)")
+    parser.add_argument("--land-sharpness", type=float, default=3.8,
+                        help="Texture sharpening strength inside land mask (default: 3.8)")
+    parser.add_argument("--water-sharpness", type=float, default=1.8,
+                        help="Gentler texture sharpening strength inside water mask (default: 1.8)")
+    parser.add_argument("--detail-radius", type=float, default=2.0,
+                        help="Fine-detail scale in pixels (default: 2.0)")
     parser.add_argument("--semantic-model", type=Path,
                         help="Optional MaskFormer ADE20K ONNX model for automatic region masks")
     parser.add_argument("--semantic-labels", type=Path,

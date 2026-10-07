@@ -40,11 +40,10 @@ REGION_COLORS = {
 class ImageAdjustments:
     """Per-region controls. Sharpening is applied only inside supplied masks."""
 
-    land_sharpness: float = 1.5
-    water_sharpness: float = 0.65
-    detail_radius: float = 1.05
+    land_sharpness: float = 3.8
+    water_sharpness: float = 1.8
+    detail_radius: float = 2.0
     highlight_lightness: float = 0.0
-    edge_protection: float = 13.0
 
 
 def _read_mask(path: Path, size: tuple[int, int]) -> np.ndarray:
@@ -181,11 +180,13 @@ def process_image(
     detail = lightness - cv2.GaussianBlur(
         lightness, (0, 0), adjustments.detail_radius
     )
+    # Bound the high-pass layer so a rare hard edge cannot create a bright/dark rim.
+    detail = np.clip(detail, -8.0, 8.0)
     local_mean = cv2.boxFilter(lightness, cv2.CV_32F, (11, 11))
     local_square = cv2.boxFilter(lightness * lightness, cv2.CV_32F, (11, 11))
     texture = np.sqrt(np.maximum(local_square - local_mean * local_mean, 0.0))
-    texture_activity = np.clip((texture - 1.5) / 5.0, 0.0, 1.0)
-    detail_signal = np.clip((np.abs(detail) - 0.35) / 1.15, 0.0, 1.0)
+    texture_activity = np.clip((texture - 1.2) / 4.0, 0.0, 1.0)
+    detail_signal = np.clip((np.abs(detail) - 0.25) / 0.9, 0.0, 1.0)
 
     land = masks.get("land", np.zeros((height, width), np.float32))
     water = masks.get("water", np.zeros((height, width), np.float32))
@@ -215,19 +216,12 @@ def process_image(
         (boat > 0.18).astype(np.float32), (0, 0), 4.0
     )
 
-    gx = cv2.Sobel(lightness, cv2.CV_32F, 1, 0, ksize=3) / 8.0
-    gy = cv2.Sobel(lightness, cv2.CV_32F, 0, 1, ksize=3) / 8.0
-    gradient = cv2.magnitude(gx, gy)
-    major_edges = (gradient > adjustments.edge_protection).astype(np.uint8)
-    major_edges = cv2.dilate(
-        major_edges, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (9, 9))
-    )
-    edge_guard = 1.0 - cv2.GaussianBlur(major_edges.astype(np.float32), (0, 0), 1.2)
     strength = (
         adjustments.land_sharpness * land
         + adjustments.water_sharpness * water
     )
-    sharpen_mask = strength * texture_activity * detail_signal * boat_guard * edge_guard
+    # The eroded semantic masks protect shorelines; only the selected interiors sharpen.
+    sharpen_mask = strength * texture_activity * detail_signal * boat_guard
     result_l = np.clip(lightness + detail * sharpen_mask, 0, 255)
 
     highlight = masks.get("highlight")
