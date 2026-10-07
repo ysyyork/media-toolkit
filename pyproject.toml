@@ -3,9 +3,9 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "travel-video-toolkit"
+name = "media-toolkit"
 version = "0.1.0"
-description = "A small, manifest-driven FFmpeg toolkit for cinematic travel-video edits"
+description = "A Python toolkit for travel video editing and mask-guided photo processing"
 readme = "README.md"
 requires-python = ">=3.11"
 license = {file = "LICENSE"}
@@ -14,6 +14,11 @@ dependencies = []
 
 [project.scripts]
 tripcut = "travel_video_editor.cli:main"
+tripimage = "travel_video_editor.image_cli:main"
+
+[project.optional-dependencies]
+image = ["numpy>=1.26", "Pillow>=10", "opencv-python-headless>=4.9"]
+semantic = ["onnxruntime>=1.17"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
