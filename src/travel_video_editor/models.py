@@ -17,6 +17,7 @@ class Grade:
     green: float = 0.008
     blue: float = -0.018
     gamma: float = 1.0
+    gamma_weight: float = 1.0
     sharpness: float = 0.24
     curve: str = "none"
 

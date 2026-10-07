@@ -39,7 +39,7 @@ def build_filtergraph(project: Project) -> str:
         curve_filter = "" if grade.curve == "none" else f",curves=preset={grade.curve}"
         timed_grade = (
             f"setpts=PTS-STARTPTS,setpts=PTS/{_f(shot.speed)},"
-            f"eq=contrast={_f(grade.contrast)}:brightness={_f(grade.brightness)}:saturation={_f(grade.saturation)}:gamma={_f(grade.gamma)}{curve_filter},"
+            f"eq=contrast={_f(grade.contrast)}:brightness={_f(grade.brightness)}:saturation={_f(grade.saturation)}:gamma={_f(grade.gamma)}:gamma_weight={_f(grade.gamma_weight)}{curve_filter},"
             f"colorbalance=rs={_f(grade.red*.6)}:gs={_f(grade.green*.6)}:bs={_f(grade.blue*.6)}:"
             f"rm={_f(grade.red*.4)}:gm={_f(grade.green*.4)}:bm={_f(grade.blue*.4)}:"
             f"rh={_f(grade.red)}:gh={_f(grade.green)}:bh={_f(grade.blue)}"
