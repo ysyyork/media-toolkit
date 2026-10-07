@@ -38,6 +38,47 @@ White selects; black protects; gray blends. Inspect `--mask-preview` before rely
 
 An image does not pass because the water is bluer, the island is warmer, or the sharpening is stronger in isolation. It passes only when those user-approved qualities coexist and the image remains clear and natural. In particular, never let a water-grade update erase the island's approved golden highlights. Never let halo suppression flatten the light or make the detail disappear. After every material edit, repeat the whole-image and crop review across the entire batch.
 
+## Lessons from the Tahoe grading session
+
+Keep these as workflow rules for future landscape edits; the approved colors are a reference, not a preset to paste onto every scene.
+
+- **Carry approval per image.** A user's approval of one or two frames approves those frames only. Maintain a small manifest with each image's source, current output, status (`candidate`, `approved`, or `needs_revision`), dimensions, and applied operations. After approval, save a SHA-256 for the final file and exclude it from unattended batch exports. An explicit revision request can unlock that file. Do not report a batch as finished while other images still need revision.
+- **Capture steering as acceptance criteria.** Store short, actionable preferences beside the manifest: natural blue sky without violet, gold or olive sunlit foliage without lemon-yellow clipping, rich blue/teal deep water, clear turquoise shallows, visible real reflections, readable land shadows, and crisp detail. Recheck the full set after each material change.
+- **Do not solve color with a hard hue replacement.** A global magenta cast can hide in cloud shadows and mountain shade even if the lake looks right. Large hue shifts based on coarse semantic masks can make blue bands at ridges or cloud boundaries. Use smooth, restrained chroma corrections; protect water from sky/land corrections; preserve luminance when changing hue; and inspect the actual mask and exported pixels at native resolution. If a band appears, revert that correction and repair its selection/transition before delivery.
+- **Treat masks as suggestions, especially at boundaries.** Low-resolution semantic segmentation can confuse cloud, mountain, tree line, and lake. A visually plausible overlay at thumbnail size can still create a conspicuous cyan, green, or magenta fringe at full size. Inspect the true skyline and shoreline at 100%; don't use a broad blurred mask to conceal an inaccurate boundary.
+- **Make light follow captured detail.** Strengthen only existing sunlit texture or water glints. Avoid circular, triangular, or radial masks and any spatial dodge not supported by captured light. Keep highlights below clipping and protect their texture. In water, preserve wave texture and the full continuous reflection, not an isolated colored patch.
+- **Treat warmth and saturation separately.** Warming a frame does not mean pushing every green pixel toward yellow. Use restrained, brightness-aware foliage changes; keep shadow greens and sunlit gold distinct. Check clouds and shaded snow for pink/purple contamination after land and water edits.
+- **Dehaze the scene, not its edges.** Distant atmosphere may be real and cannot be reversed completely from a JPEG. Avoid channel-specific black-point subtraction under a soft segmentation mask: it can create a colored line along the ridge. Build contrast from existing tonal separation, use an edge-aware land selection, and inspect both sides of the skyline. Never claim sharpening recovered absent detail.
+- **Sharpen at delivery size, then inspect.** Apply luminance detail at final pixel dimensions, with separate strength for land and water and lower strength in smooth sky/water. Check for bright/dark ringing, crunchy foliage, and amplified sensor/JPEG noise. A visible sharpening change is useful only when the texture still looks natural.
+- **Review exported files, not only previews.** Compare original, approved reference, and candidate as full frames. Reopen the JPEG and inspect native-pixel crops of sky/mountain boundaries, bright land, reflection, shoreline, and fine texture. Confirm dimensions, orientation, EXIF/ICC where available, file count, and approval states. Refresh one complete contact sheet only after the image set is settled.
+
+### Suggested approval manifest
+
+Keep this next to the editing recipe, and store hashes for approved outputs. Never use a contact sheet alone as a record of approval.
+
+```json
+{
+  "look": "user-approved landscape reference",
+  "acceptance": [
+    "blue or neutral sky and mountain shadows; no violet cast",
+    "natural golden or olive sunlit land; no fluorescent yellow",
+    "deep blue/teal water and clear turquoise shallows",
+    "captured reflections retain texture and tonal detail",
+    "crisp local detail without haze, halos, or brittle texture"
+  ],
+  "images": [
+    {
+      "source": "camera-original.jpg",
+      "output": "graded.jpg",
+      "status": "candidate",
+      "sha256": null,
+      "dimensions": [8192, 4608],
+      "operations": []
+    }
+  ]
+}
+```
+
 ## Video workflow remains separate
 
 Use `tripcut` and the project JSON for footage: inspect sources with `tripcut project.json --probe`, review timing and grades, render with `tripcut project.json`, then check the render and its credits sidecar. Use `tripimage` only for still-photo detail operations its CLI actually supports. Photo style grading should use its own future photo-specific module, per-image adjustment sidecar/profile, local masks, and preview/export path rather than expanding the video manifest to contain photo controls.

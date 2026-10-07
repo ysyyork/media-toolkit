@@ -6,6 +6,8 @@
 - Read `docs/image-workflow.md` before changing photo processing or producing edited photo deliverables. Keep it current when user steering changes the workflow.
 - Preserve the source image as the authority. Use pixel-based processing; never use generative image editing unless the user explicitly asks for it. Do not add, remove, or invent scene content.
 - Never overwrite originals. Distinguish camera originals, approved references, and prior exports before processing. Preserve image dimensions and orientation; carry metadata and color profiles when feasible.
+- Record approval per image. A user-approved frame is locked: exclude it from later batch exports or rebuilds unless the user explicitly asks to revise it. Store a content hash for approved files to detect accidental replacement.
+- Fixing one visible defect does not approve the whole batch. Keep each image in a clear state such as candidate, approved, or needs revision, and report the actual state.
 
 ## Non-negotiable visual acceptance: do not optimize one thing by sacrificing another
 
@@ -19,6 +21,8 @@ Before calling a batch finished, review each frame at fit-to-screen and inspect 
 4. Local sharpening is visible where requested and texture-aware; it does not make noise, water, or foliage brittle.
 5. No bright/dark halos, mask seams, color fringes, or abrupt transitions appear along ridges, trees, or shorelines.
 6. Highlights retain texture and tonal separation; increased light does not flatten the island or clip important detail.
+7. Blue skies and mountain shadows stay naturally blue or neutral, without violet/magenta casts or a gray-blue wash.
+8. Golden foliage looks amber or olive rather than fluorescent yellow. Judge its color and the water color together in the same frame.
 
 If any criterion fails, revise and inspect again. Do not trade away an approved quality to improve another. Check an overall contact sheet and 100% crops of the important regions (island/gold, water/reflection, shore/ridge edges, and fine detail). Inspect mask overlays before export; automatic segmentation is a starting point, not proof that a mask is correct. Keep a small number of clearly named deliverables, not a sprawl of near-duplicate versions.
 
