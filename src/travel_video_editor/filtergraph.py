@@ -14,6 +14,16 @@ def _drawtext(value: str) -> str:
             .replace(":", "\\:").replace(",", "\\,"))
 
 
+def _license_credit(value: str) -> str:
+    """Return a compact on-screen label for common Creative Commons licenses."""
+    normalized = value.casefold()
+    if "noncommercial" in normalized and "4.0" in normalized:
+        return "CC BY-NC 4.0"
+    if "attribution 4.0" in normalized:
+        return "CC BY 4.0"
+    return value
+
+
 def build_filtergraph(project: Project) -> str:
     width, height = project.width, project.height
     image_height = round(width / project.aspect_ratio)
@@ -49,7 +59,10 @@ def build_filtergraph(project: Project) -> str:
     credits_start = max(0.0, total - 4.2)
     title_x = round(width * 0.065)
     title_y = crop_y + round(image_height * 0.11)
-    music_credit = "Music: " + project.music_title + " - " + project.music_creator + " | CC BY 4.0"
+    music_credit = (
+        "Music: " + project.music_title + " - " + project.music_creator
+        + " | " + _license_credit(project.music_license)
+    )
     filters.append(
         f"[{previous}]"
         "drawtext=fontfile=/System/Library/Fonts/Supplemental/Arial.ttf:"
