@@ -52,6 +52,8 @@ Create a JSON project file that points at your own footage and soundtrack. Paths
 
 `grade` is a restrained per-shot Rec.709 adjustment. The renderer applies a widescreen crop with letterbox bars, a subtle vignette and sharpening, title/location/credit overlays, audio fades, and H.264/AAC output. The optional `music_title`, `music_creator`, `music_source`, `music_license`, and `music_license_url` fields produce a credits sidecar next to the render. Keep source assets and rendered videos outside the public code repository.
 
+`examples/seattle-road-trip.json` is a complete edit recipe with varied pacing, per-shot color, English location slates, a portrait Rainier insert, and Seattle night footage. It references footage and music that are intentionally not included; place your own files under the configured media folders or edit the paths before rendering.
+
 ## Usage
 
 ```sh

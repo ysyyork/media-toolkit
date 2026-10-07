@@ -1,0 +1,275 @@
+{
+  "title": "Summer on the Road",
+  "subtitle": "A PACIFIC NORTHWEST ROAD TRIP  /  SUMMER 2026",
+  "media_root": "../media/seattle-np",
+  "music": "../media/music/Road_Trip_Scott_Holmes.mp3",
+  "output": "../renders/Seattle_Summer_Road_Trip.mp4",
+  "width": 3840,
+  "height": 2160,
+  "fps": 30,
+  "aspect_ratio": 1.7777778,
+  "music_start": 0.0,
+  "music_volume": 0.38,
+  "threads": 18,
+  "preset": "fast",
+  "crf": 18,
+  "shots": [
+    {
+      "file": "DJI_20260619173416_0034_D.MP4",
+      "start": 26.5,
+      "duration": 4.6,
+      "speed": 1.0,
+      "grade": {
+        "contrast": 1.06,
+        "brightness": 0.016,
+        "saturation": 1.12,
+        "red": 0.012,
+        "green": 0.02,
+        "blue": -0.006
+      },
+      "transition": "fade",
+      "transition_duration": 0.34,
+      "location_title": "NORTH CASCADES",
+      "location_subtitle": "WASHINGTON"
+    },
+    {
+      "file": "DJI_20260619165304_0004_D.MP4",
+      "start": 14.0,
+      "duration": 4.5,
+      "speed": 1.2,
+      "grade": {
+        "contrast": 1.07,
+        "brightness": 0.01,
+        "saturation": 1.12,
+        "red": 0.012,
+        "green": 0.021,
+        "blue": -0.007
+      },
+      "transition": "dissolve",
+      "transition_duration": 0.18,
+      "location_title": "NORTH CASCADES",
+      "location_subtitle": "WASHINGTON"
+    },
+    {
+      "file": "DJI_20260619170029_0014_D.MP4",
+      "start": 3.0,
+      "duration": 4.2,
+      "speed": 1.2,
+      "grade": {
+        "contrast": 1.06,
+        "brightness": 0.012,
+        "saturation": 1.13,
+        "red": 0.011,
+        "green": 0.021,
+        "blue": -0.006
+      },
+      "transition": "dissolve",
+      "transition_duration": 0.18
+    },
+    {
+      "file": "DJI_20260620151248_0125_D.MP4",
+      "start": 4.0,
+      "duration": 4.2,
+      "speed": 1.15,
+      "grade": {
+        "contrast": 1.05,
+        "brightness": 0.012,
+        "saturation": 1.14,
+        "red": 0.011,
+        "green": 0.022,
+        "blue": -0.006
+      },
+      "transition": "dissolve",
+      "transition_duration": 0.18,
+      "location_title": "OLYMPIC PENINSULA",
+      "location_subtitle": "WASHINGTON"
+    },
+    {
+      "file": "DJI_20260620134057_0094_D.MP4",
+      "start": 24.0,
+      "duration": 4.2,
+      "speed": 1.2,
+      "grade": {
+        "contrast": 1.05,
+        "brightness": 0.018,
+        "saturation": 1.15,
+        "red": 0.014,
+        "green": 0.022,
+        "blue": -0.004
+      },
+      "transition": "dissolve",
+      "transition_duration": 0.18,
+      "location_title": "OLYMPIC PENINSULA",
+      "location_subtitle": "WASHINGTON"
+    },
+    {
+      "file": "DJI_20260620163733_0137_D.MP4",
+      "start": 34.0,
+      "duration": 4.2,
+      "speed": 1.15,
+      "grade": {
+        "contrast": 1.06,
+        "brightness": 0.008,
+        "saturation": 1.11,
+        "red": 0.013,
+        "green": 0.021,
+        "blue": -0.004
+      },
+      "transition": "dissolve",
+      "transition_duration": 0.18,
+      "location_title": "OLYMPIC MOUNTAINS",
+      "location_subtitle": "OLYMPIC NATIONAL PARK"
+    },
+    {
+      "file": "DJI_20260620165309_0156_D.MP4",
+      "start": 70.0,
+      "duration": 4.4,
+      "speed": 1.25,
+      "grade": {
+        "contrast": 1.06,
+        "brightness": 0.012,
+        "saturation": 1.14,
+        "red": 0.011,
+        "green": 0.023,
+        "blue": -0.006
+      },
+      "transition": "dissolve",
+      "transition_duration": 0.18
+    },
+    {
+      "file": "DJI_20260620185349_0174_D.MP4",
+      "start": 2.0,
+      "duration": 4.3,
+      "speed": 1.2,
+      "grade": {
+        "contrast": 1.05,
+        "brightness": 0.018,
+        "saturation": 1.14,
+        "red": 0.013,
+        "green": 0.023,
+        "blue": -0.004
+      },
+      "transition": "dissolve",
+      "transition_duration": 0.18,
+      "location_title": "LAKE CRESCENT",
+      "location_subtitle": "OLYMPIC NATIONAL PARK"
+    },
+    {
+      "file": "DJI_20260620205303_0193_D.MP4",
+      "start": 25.0,
+      "duration": 4.2,
+      "speed": 1.2,
+      "grade": {
+        "contrast": 1.06,
+        "brightness": 0.014,
+        "saturation": 1.14,
+        "red": 0.013,
+        "green": 0.021,
+        "blue": -0.004
+      },
+      "transition": "dissolve",
+      "transition_duration": 0.18,
+      "location_title": "OLYMPIC COAST",
+      "location_subtitle": "PACIFIC OCEAN"
+    },
+    {
+      "file": "DJI_20260621131903_0200_D.MP4",
+      "start": 9.0,
+      "duration": 4.8,
+      "speed": 1.2,
+      "grade": {
+        "contrast": 1.06,
+        "brightness": 0.014,
+        "saturation": 1.12,
+        "red": 0.011,
+        "green": 0.017,
+        "blue": -0.004
+      },
+      "transition": "dissolve",
+      "transition_duration": 0.18,
+      "location_title": "SEATTLE",
+      "location_subtitle": "WASHINGTON"
+    },
+    {
+      "file": "DJI_20260621132852_0210_D.MP4",
+      "start": 1.0,
+      "duration": 6.0,
+      "speed": 1.25,
+      "grade": {
+        "contrast": 1.05,
+        "brightness": 0.014,
+        "saturation": 1.12,
+        "red": 0.012,
+        "green": 0.018,
+        "blue": -0.004
+      },
+      "transition": "dissolve",
+      "transition_duration": 0.18,
+      "location_title": "SEATTLE WATERFRONT",
+      "location_subtitle": "FERRIES ON PUGET SOUND"
+    },
+    {
+      "file": "DJI_20260621152323_0248_D.MP4",
+      "start": 11.0,
+      "duration": 5.0,
+      "speed": 1.0,
+      "grade": {
+        "contrast": 1.06,
+        "brightness": 0.01,
+        "saturation": 1.12,
+        "red": 0.014,
+        "green": 0.018,
+        "blue": -0.004
+      },
+      "transition": "dissolve",
+      "transition_duration": 0.26,
+      "location_title": "LAKE WASHINGTON",
+      "location_subtitle": "SEATTLE AREA",
+      "location_duration": 2.8
+    },
+    {
+      "file": "DJI_20260621153320_0275_D.MP4",
+      "start": 2.0,
+      "duration": 4.2,
+      "speed": 1.0,
+      "grade": {
+        "contrast": 1.06,
+        "brightness": 0.006,
+        "saturation": 1.11,
+        "red": 0.01,
+        "green": 0.014,
+        "blue": -0.006
+      },
+      "transition": "dissolve",
+      "transition_duration": 0.2,
+      "location_title": "MOUNT RAINIER",
+      "location_subtitle": "WASHINGTON",
+      "location_duration": 3.3,
+      "vertical_layout": "portrait_blur"
+    },
+    {
+      "file": "DJI_20260619230635_0087_D.MP4",
+      "start": 1.4,
+      "duration": 5.4,
+      "speed": 1.0,
+      "grade": {
+        "contrast": 1.07,
+        "brightness": -0.006,
+        "saturation": 1.12,
+        "red": 0.006,
+        "green": 0.008,
+        "blue": -0.002
+      },
+      "transition": "dissolve",
+      "transition_duration": 0.24,
+      "location_title": "SEATTLE AFTER DARK",
+      "location_subtitle": "WASHINGTON",
+      "location_duration": 3.4
+    }
+  ],
+  "music_title": "Road Trip",
+  "music_creator": "Scott Holmes Music",
+  "music_source": "https://scottholmesmusic.com/royalty-free-music/road-trip/",
+  "music_license": "Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)",
+  "music_license_url": "https://creativecommons.org/licenses/by-nc/4.0/"
+}
