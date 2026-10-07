@@ -1,17 +1,29 @@
-# Travel Video Toolkit
+# Travel Media Toolkit
 
-A small, manifest-driven Python toolkit for assembling cinematic travel edits with FFmpeg. The design separates project data (`models`), timeline math (`timeline`), filter-graph construction (`filtergraph`), rendering (`render`), media inspection (`probe`), attribution (`credits`), and the CLI (`cli`). The FFmpeg invocation is built as an argument list, so filenames with spaces are handled safely.
+A small Python toolkit for assembling cinematic travel edits with FFmpeg and making mask-guided photo adjustments. Video project data (`models`), timeline math (`timeline`), filter-graph construction (`filtergraph`), rendering (`render`), media inspection (`probe`), attribution (`credits`), and the video CLI (`cli`) stay separate from image processing (`image_processing`, `image_cli`). FFmpeg invocations use argument lists, so filenames with spaces are handled safely.
 
 ## Requirements
 
 - Python 3.11+
 - FFmpeg and ffprobe in `PATH` (macOS: `brew install ffmpeg`)
-- No Python runtime dependencies
+- No Python dependencies are needed for video-only use
 
 ## Install
 
 ```sh
 python3 -m pip install .
+```
+
+Install the optional photo-processing dependencies when using `tripimage`:
+
+```sh
+python3 -m pip install '.[image]'
+```
+
+For automatic ADE20K region masks with a compatible MaskFormer ONNX export, also install:
+
+```sh
+python3 -m pip install '.[image,semantic]'
 ```
 
 ## Project manifest
@@ -58,6 +70,35 @@ tripcut project.json
 ```
 
 Use `--probe` to review clip metadata first. The output is written to a temporary sibling and renamed into place only after FFmpeg succeeds.
+
+## Mask-guided image processing
+
+`tripimage` applies local detail sharpening and an optional highlight lift to existing pixels. It never creates, removes, or relocates image content. Land and water use separate sharpening strengths; smooth regions and strong boundaries are protected to reduce noise and halos.
+
+The most precise workflow is to paint grayscale masks in an image editor such as Photoshop and export them at any size. White selects the adjustment area, black protects it, and gray gives a soft blend. Use a land mask for trees and rocks, a water mask for ripples, a boat mask to protect a subject, and a highlight mask to lift only reflected light:
+
+```sh
+tripimage source.jpg preview.jpg \
+  --land-mask masks/land.png \
+  --water-mask masks/water.png \
+  --boat-mask masks/boat.png \
+  --highlight-mask masks/reflection.png \
+  --highlight-lightness 40 \
+  --land-sharpness 3.8 \
+  --water-sharpness 1.8 \
+  --mask-preview preview-masks.jpg
+```
+
+`--mask-preview` writes a color overlay so selections can be checked before using the processed image. Automatic region masks are available with a compatible MaskFormer ADE20K ONNX model and its `id2label` JSON file:
+
+```sh
+tripimage source.jpg preview.jpg \
+  --semantic-model models/maskformer-ade20k.onnx \
+  --semantic-labels models/ade20k-config.json \
+  --mask-preview preview-masks.jpg
+```
+
+Painted masks override matching automatic masks. The input is never overwritten. Model files are not bundled; keep downloaded models outside the repository and follow their license terms.
 
 ## Attribution
 
