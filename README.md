@@ -1,6 +1,6 @@
 # Media Toolkit
 
-A small Python toolkit for assembling cinematic travel edits with FFmpeg and making mask-guided photo adjustments. Video project data (`models`), timeline math (`timeline`), filter-graph construction (`filtergraph`), rendering (`render`), media inspection (`probe`), attribution (`credits`), and the video CLI (`cli`) stay separate from image processing (`image_processing`, `image_cli`). FFmpeg invocations use argument lists, so filenames with spaces are handled safely.
+A small Python toolkit with two distinct workflows: cinematic video assembly through FFmpeg (`tripcut`) and mask-guided still-photo detail work (`tripimage`). Photo and video manifests, processing, and outputs stay separate. `tripimage` currently provides selective sharpening and masked lightness lift; it is not a full photo color-grading editor. See [the photo workflow](docs/image-workflow.md) for the end-to-end process, quality gates, and current limits. Project-level editing instructions live in `AGENTS.md`.
 
 ## Requirements
 
@@ -103,6 +103,8 @@ tripimage source.jpg preview.jpg \
 ```
 
 Painted masks override matching automatic masks. Sharpening defaults are 3.8 for land, 1.8 for water, and a 2 px detail radius; tune them per image and inspect the mask preview, especially around shorelines and small subjects. The input is never overwritten; output dimensions are preserved and available EXIF/ICC metadata is carried forward. Model files are not bundled; keep downloaded models outside the repository and follow their license terms.
+
+Photo edits must pass a multi-criteria review together: preserve approved golden highlights while adjusting water color, retain clarity and texture, and check for halos and mask seams. A gain in one region does not justify losing another approved quality. A separate [photo workflow](docs/image-workflow.md) describes the quality gate and current limits.
 
 ## Attribution
 
