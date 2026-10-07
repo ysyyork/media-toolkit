@@ -15,6 +15,13 @@ class Grade:
     red: float = 0.012
     green: float = 0.008
     blue: float = -0.018
+    gamma: float = 1.0
+    sharpness: float = 0.24
+    curve: str = "none"
+
+    def __post_init__(self) -> None:
+        if self.curve not in {"none", "medium_contrast", "strong_contrast"}:
+            raise ValueError(f"Unsupported curve preset: {self.curve}")
 
 
 @dataclass(frozen=True)
