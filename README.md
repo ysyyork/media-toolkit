@@ -16,7 +16,7 @@ python3 -m pip install .
 
 ## Project manifest
 
-Create a JSON project file that points at your own footage and soundtrack. Paths are relative to the manifest unless absolute. Each shot uses a source in-point and source duration; `speed` affects playback duration. The transition on each shot describes how it enters (the first shot's value is ignored).
+Create a JSON project file that points at your own footage and soundtrack. Paths are relative to the manifest unless absolute. Each shot uses a source in-point and source duration; `speed` affects playback duration. The transition on each shot describes how it enters (the first shot's value is ignored). Optional `location_title`, `location_subtitle`, and `location_duration` fields add a timed lower-left place slate. Set `vertical_layout` to `portrait_blur` to preserve a portrait clip in a landscape edit with a softened full-frame background.
 
 ```json
 {
@@ -43,12 +43,14 @@ Create a JSON project file that points at your own footage and soundtrack. Paths
     {"file": "lake.mp4", "start": 12.0, "duration": 7.0, "speed": 1.0,
      "grade": {"contrast": 1.1, "brightness": 0, "saturation": 1.06,
                 "red": 0.012, "green": 0.008, "blue": -0.018},
-     "transition": "fade", "transition_duration": 0.45}
+     "transition": "fade", "transition_duration": 0.45,
+     "location_title": "LAKE CRESCENT", "location_subtitle": "WASHINGTON",
+     "location_duration": 2.6, "vertical_layout": "fill"}
   ]
 }
 ```
 
-`grade` is a restrained per-shot Rec.709 adjustment. The renderer applies a widescreen crop with letterbox bars, a subtle vignette and sharpening, title/credit overlays, audio fades, and H.264/AAC output. The optional `music_title`, `music_creator`, `music_source`, `music_license`, and `music_license_url` fields produce a credits sidecar next to the render. Keep source assets and rendered videos outside the public code repository.
+`grade` is a restrained per-shot Rec.709 adjustment. The renderer applies a widescreen crop with letterbox bars, a subtle vignette and sharpening, title/location/credit overlays, audio fades, and H.264/AAC output. The optional `music_title`, `music_creator`, `music_source`, `music_license`, and `music_license_url` fields produce a credits sidecar next to the render. Keep source assets and rendered videos outside the public code repository.
 
 ## Usage
 

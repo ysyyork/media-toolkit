@@ -27,6 +27,10 @@ class Shot:
     transition: str = "fade"
     transition_duration: float = 0.45
     crop_y: int | None = None
+    location_title: str = ""
+    location_subtitle: str = ""
+    location_duration: float = 2.6
+    vertical_layout: str = "fill"
 
 
 @dataclass(frozen=True)
@@ -64,6 +68,8 @@ class Project:
                 "fade", "dissolve", "smoothleft", "smoothright", "fadeblack"
             }:
                 raise ValueError(f"Unsupported transition in shot {shot.file}")
+            if shot.vertical_layout not in {"fill", "portrait_blur"}:
+                raise ValueError(f"Unsupported vertical layout in shot {shot.file}")
         if self.threads < 1 or not 0 <= self.crf <= 51:
             raise ValueError("Invalid encoder settings")
 
@@ -97,6 +103,10 @@ def load_project(path: Path) -> Project:
             transition=item.get("transition", "fade"),
             transition_duration=float(item.get("transition_duration", 0.45)),
             crop_y=item.get("crop_y"),
+            location_title=item.get("location_title", ""),
+            location_subtitle=item.get("location_subtitle", ""),
+            location_duration=float(item.get("location_duration", 2.6)),
+            vertical_layout=item.get("vertical_layout", "fill"),
         )
         for item in raw["shots"]
     )
