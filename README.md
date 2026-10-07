@@ -30,7 +30,7 @@ python3 -m pip install '.[image,semantic]'
 
 Create a JSON project file that points at your own footage and soundtrack. Paths are relative to the manifest unless absolute. Each shot uses a source in-point and source duration; `speed` affects playback duration. The transition on each shot describes how it enters (the first shot's value is ignored). Optional `location_title`, `location_subtitle`, and `location_duration` fields add a timed lower-left place slate. Set `vertical_layout` to `portrait_blur` to preserve a portrait clip in a landscape edit with a softened full-frame background. Set `zoom` between 1.0 and 2.0 to center-crop a shot when a distant subject needs a modest emphasis.
 
-Set a project-level `grade_preset` to `summer_film_pop` for a warm, saturated travel look with moderate contrast and sharpening. Check bright sky, deep forest, and fine city detail separately; use per-shot `grade` overrides when one shot needs highlight recovery, shadow lift, or gentler sharpening. Add important filenames to `required_shots`; loading the project fails if any of those highlights are later removed from the timeline. This keeps must-have moments such as takeoff, wildlife, or a city aerial from being dropped during revisions.
+Set a project-level `grade_preset` to `summer_film_pop` for a warm, saturated travel look with moderate contrast, golden highlights, and restrained green in shadows and midtones. Check bright sky, deep forest, and fine city detail separately; use per-shot `grade` overrides when one shot needs highlight recovery, shadow lift, or gentler sharpening. `shadow_*`, `midtone_*`, and `highlight_*` RGB fields let a grade warm sunlight while preserving cooler lake and ocean color. Add important filenames to `required_shots`; loading the project fails if any of those highlights are later removed from the timeline. This keeps must-have moments such as takeoff, wildlife, or a city aerial from being dropped during revisions.
 
 ```json
 {
@@ -53,6 +53,8 @@ Set a project-level `grade_preset` to `summer_film_pop` for a warm, saturated tr
   "threads": 18,
   "preset": "fast",
   "crf": 17,
+  "encoder": "libx264",
+  "video_bitrate": "45M",
   "shots": [
     {"file": "lake.mp4", "start": 12.0, "duration": 7.0, "speed": 1.0,
      "grade": {"contrast": 1.1, "brightness": 0, "saturation": 1.06,
@@ -64,7 +66,7 @@ Set a project-level `grade_preset` to `summer_film_pop` for a warm, saturated tr
 }
 ```
 
-`grade` supports per-shot contrast, brightness, saturation, RGB color balance, gamma, `gamma_weight` (to favor midtones and shadows while limiting highlight changes), sharpening, and optional contrast-curve presets (`medium_contrast` or `strong_contrast`) so bright landscapes and night footage can be tuned separately. For each finished export, inspect representative frames from every shot, transitions, and the ending at full display size; then play the whole cut and confirm the soundtrack does not end before the picture. The renderer applies a widescreen crop with letterbox bars, a subtle vignette, title/location/credit overlays, audio fades, and H.264/AAC output. The optional `music_title`, `music_creator`, `music_source`, `music_license`, and `music_license_url` fields produce a credits sidecar next to the render. Keep source assets and rendered videos outside the public code repository.
+`grade` supports per-shot contrast, brightness, saturation, base RGB balance, separate shadow/midtone/highlight RGB balance, gamma, `gamma_weight` (to favor midtones and shadows while limiting highlight changes), sharpening, and optional contrast-curve presets (`medium_contrast` or `strong_contrast`) so bright landscapes and night footage can be tuned separately. For each finished export, inspect representative frames from every shot, transitions, and the ending at full display size; then play the whole cut and confirm the soundtrack does not end before the picture. The renderer applies a widescreen crop with letterbox bars, a subtle vignette, title/location/credit overlays, audio fades, and H.264/AAC output. The optional `music_title`, `music_creator`, `music_source`, `music_license`, and `music_license_url` fields produce a credits sidecar next to the render. Keep source assets and rendered videos outside the public code repository.
 
 `examples/seattle-road-trip.json` and `examples/seattle-road-trip-indie-rock.json` are complete edit recipes with varied pacing, English location slates, a portrait Rainier insert, a Space Needle flyover at night, and a Bellevue aerial. The indie-rock recipe also demonstrates per-shot corrections for an overbright coast, a shadow-heavy mountain pass, and detailed city footage, plus the required-highlight guard. Both reference footage and music that are intentionally not included; place your own files under the configured media folders or edit the paths before rendering.
 
@@ -73,9 +75,13 @@ Set a project-level `grade_preset` to `summer_film_pop` for a warm, saturated tr
 ```sh
 tripcut project.json --probe
 tripcut project.json
+tripcut project.json --qc
+tripcut project.json --preview
 ```
 
-Use `--probe` to review clip metadata first. The output is written to a temporary sibling and renamed into place only after FFmpeg succeeds.
+Use `--probe` to review clip metadata first. Use `--preview` while adjusting the edit: it renders a 720p review copy and uses Apple VideoToolbox H.264 encoding on macOS, keeping the color and framing filters in the same pipeline. Inspect the contact sheet and play the preview; after approval, render the full-resolution manifest. Set `encoder` to `h264_videotoolbox` and `video_bitrate` to a suitable target such as `45M` for a hardware-encoded final on supported Macs. The default `libx264` uses CPU encoding and CRF quality control; VideoToolbox uses bitrate control, so confirm detail and file size on a short preview before choosing it for delivery. Hardware encoding speeds only the encode stage; current FFmpeg color, scaling, overlays, and transitions still run through software filters.
+
+A normal render writes to a temporary sibling and renames it into place only after FFmpeg succeeds. It then checks output resolution and duration, decodes the complete export, and creates a contact sheet containing a midpoint from every shot, the midpoint of every transition, and the ending. The adjacent `.txt` file maps each panel to its source clip and timeline time. Open the contact sheet and inspect every panel for exposure, subject visibility, focus, crop, and transition artifacts; then play the full export to check motion and music sync. `--qc` repeats those checks for an existing render without rendering again.
 
 ## Mask-guided image processing
 

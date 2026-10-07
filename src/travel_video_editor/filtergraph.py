@@ -29,6 +29,8 @@ def _license_credit(value: str) -> str:
 
 def build_filtergraph(project: Project) -> str:
     width, height = project.width, project.height
+    scale_factor = min(width / 3840, height / 2160)
+    px = lambda value: max(1, round(value * scale_factor))
     image_height = round(width / project.aspect_ratio)
     image_height -= image_height % 2
     crop_y = (height - image_height) // 2
@@ -40,21 +42,31 @@ def build_filtergraph(project: Project) -> str:
         timed_grade = (
             f"setpts=PTS-STARTPTS,setpts=PTS/{_f(shot.speed)},"
             f"eq=contrast={_f(grade.contrast)}:brightness={_f(grade.brightness)}:saturation={_f(grade.saturation)}:gamma={_f(grade.gamma)}:gamma_weight={_f(grade.gamma_weight)}{curve_filter},"
-            f"colorbalance=rs={_f(grade.red*.6)}:gs={_f(grade.green*.6)}:bs={_f(grade.blue*.6)}:"
-            f"rm={_f(grade.red*.4)}:gm={_f(grade.green*.4)}:bm={_f(grade.blue*.4)}:"
-            f"rh={_f(grade.red)}:gh={_f(grade.green)}:bh={_f(grade.blue)}"
+            f"colorbalance=rs={_f(grade.red*.6+grade.shadow_red)}:gs={_f(grade.green*.6+grade.shadow_green)}:bs={_f(grade.blue*.6+grade.shadow_blue)}:"
+            f"rm={_f(grade.red*.4+grade.midtone_red)}:gm={_f(grade.green*.4+grade.midtone_green)}:bm={_f(grade.blue*.4+grade.midtone_blue)}:"
+            f"rh={_f(grade.red+grade.highlight_red)}:gh={_f(grade.green+grade.highlight_green)}:bh={_f(grade.blue+grade.highlight_blue)}"
         )
         if shot.vertical_layout == "portrait_blur":
             filters.extend([
                 f"[{i}:v]{timed_grade},split=2[bgraw{i}][fgraw{i}]",
                 f"[bgraw{i}]scale={width}:{height}:force_original_aspect_ratio=increase,"
                 f"crop={width}:{height},boxblur=28:10,eq=brightness=-0.10:saturation=0.72[bg{i}]",
-                f"[fgraw{i}]scale=1440:-2:flags=lanczos,crop=1440:{height}:0:(in_h-{height})/2[fg{i}]",
+                f"[fgraw{i}]scale={px(1440)}:-2:flags=lanczos,crop={px(1440)}:{height}:0:(in_h-{height})/2[fg{i}]",
                 f"[bg{i}][fg{i}]overlay=(W-w)/2:(H-h)/2,vignette=PI/8,"
                 f"unsharp=5:5:{_f(grade.sharpness)}:3:3:0.0,fps={project.fps},setsar=1,format=yuv420p[v{i}]",
             ])
         else:
-            if shot.zoom > 1.0:
+            if shot.zoom_end is not None and shot.zoom_end != shot.zoom:
+                clip_duration = shot.duration / shot.speed
+                zoom = f"{_f(shot.zoom)}+{_f(shot.zoom_end-shot.zoom)}*t/{_f(clip_duration)}"
+                center_end = shot.center_x if shot.center_x_end is None else shot.center_x_end
+                center = f"{_f(shot.center_x)}+{_f(center_end-shot.center_x)}*t/{_f(clip_duration)}"
+                scale_crop = (
+                    f"scale=w='trunc({width}*({zoom})/2)*2':"
+                    f"h='trunc({height}*({zoom})/2)*2':eval=frame:flags=lanczos,"
+                    f"crop={width}:{image_height}:'(iw-{width})*({center})':(ih-{image_height})/2"
+                )
+            elif shot.zoom > 1.0:
                 scaled_width = round(width * shot.zoom)
                 scaled_height = round(height * shot.zoom)
                 scale_crop = (
@@ -91,11 +103,11 @@ def build_filtergraph(project: Project) -> str:
     )
     overlays = [
         f"drawtext=fontfile={_DISPLAY_FONT}:"
-        f"text='{_drawtext(project.title)}':fontcolor=0xF8F4EC:fontsize=108:shadowcolor=black@0.48:shadowx=2:shadowy=2:"
+        f"text='{_drawtext(project.title)}':fontcolor=0xF8F4EC:fontsize={px(108)}:shadowcolor=black@0.48:shadowx={px(2)}:shadowy={px(2)}:"
         f"x={title_x}:y={title_y}:enable='between(t,0,4.0)',"
         f"drawtext=fontfile={_TEXT_FONT}:"
-        f"text='{_drawtext(project.subtitle)}':fontcolor=0xF3E9D5:fontsize=34:shadowcolor=black@0.48:shadowx=1:shadowy=1:"
-        f"x={title_x}:y={title_y+100}:enable='between(t,0,4.0)'"
+        f"text='{_drawtext(project.subtitle)}':fontcolor=0xF3E9D5:fontsize={px(34)}:shadowcolor=black@0.48:shadowx={px(1)}:shadowy={px(1)}:"
+        f"x={title_x}:y={title_y+px(100)}:enable='between(t,0,4.0)'"
     ]
 
     # Place restrained location slates in the lower left, timed to each selected shot.
@@ -109,19 +121,19 @@ def build_filtergraph(project: Project) -> str:
             continue
         cue = f"between(t,{_f(cue_start)},{_f(cue_end)})"
         overlays.extend([
-            f"drawbox=x=108:y={height-278}:w=5:h=88:color=0xD7B978@0.96:t=fill:enable='{cue}'",
+            f"drawbox=x={px(108)}:y={height-px(278)}:w={px(5)}:h={px(88)}:color=0xD7B978@0.96:t=fill:enable='{cue}'",
             f"drawtext=fontfile={_DISPLAY_FONT}:"
-            f"text='{_drawtext(shot.location_title)}':fontcolor=0xFFF9EF:fontsize=66:"
-            f"shadowcolor=black@0.52:shadowx=2:shadowy=2:x=137:y={height-280}:enable='{cue}',"
+            f"text='{_drawtext(shot.location_title)}':fontcolor=0xFFF9EF:fontsize={px(66)}:"
+            f"shadowcolor=black@0.52:shadowx={px(2)}:shadowy={px(2)}:x={px(137)}:y={height-px(280)}:enable='{cue}',"
             f"drawtext=fontfile={_TEXT_FONT}:"
-            f"text='{_drawtext(shot.location_subtitle)}':fontcolor=0xF3E9D5@0.92:fontsize=30:"
-            f"shadowcolor=black@0.52:shadowx=1:shadowy=2:x=137:y={height-202}:enable='{cue}'"
+            f"text='{_drawtext(shot.location_subtitle)}':fontcolor=0xF3E9D5@0.92:fontsize={px(30)}:"
+            f"shadowcolor=black@0.52:shadowx={px(1)}:shadowy={px(2)}:x={px(137)}:y={height-px(202)}:enable='{cue}'"
         ])
 
     overlays.append(
         f"drawtext=fontfile={_TEXT_FONT}:"
-        f"text='{_drawtext(music_credit)}':fontcolor=0xF3E9D5:fontsize=28:"
-        f"x=108:y={height-84}:enable='between(t,{_f(credits_start)},{_f(total)})'"
+        f"text='{_drawtext(music_credit)}':fontcolor=0xF3E9D5:fontsize={px(28)}:"
+        f"x={px(108)}:y={height-px(84)}:enable='between(t,{_f(credits_start)},{_f(total)})'"
     )
     filters.append(
         f"[{previous}]" + ",".join(overlays)

@@ -85,14 +85,15 @@
       "vertical_layout": "fill",
       "zoom": 1.0,
       "grade": {
-        "contrast": 1.22,
-        "brightness": 0.022,
-        "saturation": 1.16,
-        "red": 0.012,
-        "green": 0.008,
-        "blue": 0.002,
-        "gamma": 0.95,
-        "sharpness": 0.42,
+        "contrast": 1.08,
+        "brightness": 0.018,
+        "saturation": 1.1,
+        "red": 0.01,
+        "green": 0.01,
+        "blue": 0.0,
+        "gamma": 1.12,
+        "gamma_weight": 0.65,
+        "sharpness": 0.14,
         "curve": "none"
       }
     },
@@ -193,15 +194,16 @@
       "location_duration": 2.666666666666667,
       "zoom": 1.5,
       "grade": {
-        "contrast": 1.19,
-        "brightness": 0.065,
-        "saturation": 1.18,
-        "red": 0.015,
-        "green": 0.018,
-        "blue": -0.004,
-        "gamma": 0.82,
-        "sharpness": 0.52,
-        "curve": "medium_contrast"
+        "contrast": 1.1,
+        "brightness": 0.02,
+        "saturation": 1.2,
+        "red": 0.01,
+        "green": 0.012,
+        "blue": -0.006,
+        "gamma": 1.15,
+        "gamma_weight": 0.7,
+        "sharpness": 0.26,
+        "curve": "none"
       }
     },
     {

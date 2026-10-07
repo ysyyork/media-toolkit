@@ -20,11 +20,16 @@ class FFmpegRenderer:
         for shot in project.shots:
             args += ["-threads", "3", "-ss", str(shot.start), "-t", str(shot.duration), "-i", str(project.source_path(shot))]
         args += ["-ss", str(project.music_start), "-i", str(project.music)]
+        if project.encoder == "h264_videotoolbox":
+            encoder_args = ["-c:v", project.encoder, "-b:v", project.video_bitrate,
+                            "-maxrate", project.video_bitrate, "-profile:v", "high", "-level:v", "5.1"]
+        else:
+            encoder_args = ["-c:v", project.encoder, "-preset", project.preset, "-crf", str(project.crf),
+                            "-threads", str(project.threads), "-profile:v", "high", "-level:v", "5.1"]
         args += [
             "-filter_complex", build_filtergraph(project),
             "-map", "[outv]", "-map", "[outa]",
-            "-c:v", "libx264", "-preset", project.preset, "-crf", str(project.crf),
-            "-threads", str(project.threads), "-profile:v", "high", "-level:v", "5.1",
+            *encoder_args,
             "-tag:v", "avc1", "-pix_fmt", "yuv420p",
             "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
             "-movflags", "+faststart", "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709",

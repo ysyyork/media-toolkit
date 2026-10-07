@@ -16,6 +16,15 @@ class Grade:
     red: float = 0.012
     green: float = 0.008
     blue: float = -0.018
+    shadow_red: float = 0.0
+    shadow_green: float = 0.0
+    shadow_blue: float = 0.0
+    midtone_red: float = 0.0
+    midtone_green: float = 0.0
+    midtone_blue: float = 0.0
+    highlight_red: float = 0.0
+    highlight_green: float = 0.0
+    highlight_blue: float = 0.0
     gamma: float = 1.0
     gamma_weight: float = 1.0
     sharpness: float = 0.24
@@ -41,6 +50,9 @@ class Shot:
     location_duration: float = 2.6
     vertical_layout: str = "fill"
     zoom: float = 1.0
+    zoom_end: float | None = None
+    center_x: float = 0.5
+    center_x_end: float | None = None
 
 
 @dataclass(frozen=True)
@@ -65,6 +77,8 @@ class Project:
     threads: int = 18
     preset: str = "fast"
     crf: int = 17
+    encoder: str = "libx264"
+    video_bitrate: str = "45M"
     grade_preset: str = "neutral"
     required_shots: tuple[str, ...] = ()
 
@@ -88,8 +102,16 @@ class Project:
                 raise ValueError(f"Unsupported vertical layout in shot {shot.file}")
             if not 1.0 <= shot.zoom <= 2.0:
                 raise ValueError(f"Zoom must be between 1.0 and 2.0 in shot {shot.file}")
+            if shot.zoom_end is not None and not 1.0 <= shot.zoom_end <= 2.0:
+                raise ValueError(f"Ending zoom must be between 1.0 and 2.0 in shot {shot.file}")
+            if not 0.0 <= shot.center_x <= 1.0 or (
+                shot.center_x_end is not None and not 0.0 <= shot.center_x_end <= 1.0
+            ):
+                raise ValueError(f"Crop center must be between 0 and 1 in shot {shot.file}")
         if self.threads < 1 or not 0 <= self.crf <= 51:
             raise ValueError("Invalid encoder settings")
+        if self.encoder not in {"libx264", "h264_videotoolbox"}:
+            raise ValueError("Unsupported video encoder; choose libx264 or h264_videotoolbox")
 
     @property
     def output_durations(self) -> list[float]:
@@ -128,6 +150,9 @@ def load_project(path: Path) -> Project:
             location_duration=float(item.get("location_duration", 2.6)),
             vertical_layout=item.get("vertical_layout", "fill"),
             zoom=float(item.get("zoom", 1.0)),
+            zoom_end=(float(item["zoom_end"]) if item.get("zoom_end") is not None else None),
+            center_x=float(item.get("center_x", 0.5)),
+            center_x_end=(float(item["center_x_end"]) if item.get("center_x_end") is not None else None),
         )
         for item in raw["shots"]
     )
@@ -152,6 +177,8 @@ def load_project(path: Path) -> Project:
         threads=int(raw.get("threads", 18)),
         preset=raw.get("preset", "fast"),
         crf=int(raw.get("crf", 17)),
+        encoder=raw.get("encoder", "libx264"),
+        video_bitrate=raw.get("video_bitrate", "45M"),
         grade_preset=grade_preset,
         required_shots=tuple(raw.get("required_shots", ())),
     )

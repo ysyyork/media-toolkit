@@ -17,12 +17,21 @@ LOOK_PRESETS: dict[str, dict[str, float | str]] = {
     "summer_film_pop": {
         # Keep the summer warmth and color while preserving highlight and
         # shadow detail across mixed daylight footage.
-        "contrast": 1.16,
+        "contrast": 1.18,
         "brightness": 0.012,
-        "saturation": 1.16,
+        "saturation": 1.22,
         "red": 0.015,
         "green": 0.020,
         "blue": -0.008,
+        "shadow_red": 0.002,
+        "shadow_green": 0.016,
+        "shadow_blue": 0.003,
+        "midtone_red": 0.035,
+        "midtone_green": 0.028,
+        "midtone_blue": -0.028,
+        "highlight_red": 0.085,
+        "highlight_green": 0.048,
+        "highlight_blue": -0.042,
         "gamma": 1.0,
         "sharpness": 0.24,
         "curve": "medium_contrast",
