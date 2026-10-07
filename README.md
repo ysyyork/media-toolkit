@@ -28,7 +28,7 @@ python3 -m pip install '.[image,semantic]'
 
 ## Project manifest
 
-Create a JSON project file that points at your own footage and soundtrack. Paths are relative to the manifest unless absolute. Each shot uses a source in-point and source duration; `speed` affects playback duration. The transition on each shot describes how it enters (the first shot's value is ignored).
+Create a JSON project file that points at your own footage and soundtrack. Paths are relative to the manifest unless absolute. Each shot uses a source in-point and source duration; `speed` affects playback duration. The transition on each shot describes how it enters (the first shot's value is ignored). Optional `location_title`, `location_subtitle`, and `location_duration` fields add a timed lower-left place slate. Set `vertical_layout` to `portrait_blur` to preserve a portrait clip in a landscape edit with a softened full-frame background.
 
 ```json
 {
@@ -55,12 +55,16 @@ Create a JSON project file that points at your own footage and soundtrack. Paths
     {"file": "lake.mp4", "start": 12.0, "duration": 7.0, "speed": 1.0,
      "grade": {"contrast": 1.1, "brightness": 0, "saturation": 1.06,
                 "red": 0.012, "green": 0.008, "blue": -0.018},
-     "transition": "fade", "transition_duration": 0.45}
+     "transition": "fade", "transition_duration": 0.45,
+     "location_title": "LAKE CRESCENT", "location_subtitle": "WASHINGTON",
+     "location_duration": 2.6, "vertical_layout": "fill"}
   ]
 }
 ```
 
-`grade` is a restrained per-shot Rec.709 adjustment. The renderer applies a widescreen crop with letterbox bars, a subtle vignette and sharpening, title/credit overlays, audio fades, and H.264/AAC output. The optional `music_title`, `music_creator`, `music_source`, `music_license`, and `music_license_url` fields produce a credits sidecar next to the render. Keep source assets and rendered videos outside the public code repository.
+`grade` supports per-shot contrast, brightness, saturation, RGB color balance, gamma, sharpening, and optional contrast-curve presets (`medium_contrast` or `strong_contrast`) so bright landscapes and night footage can be tuned separately. The renderer applies a widescreen crop with letterbox bars, a subtle vignette, title/location/credit overlays, audio fades, and H.264/AAC output. The optional `music_title`, `music_creator`, `music_source`, `music_license`, and `music_license_url` fields produce a credits sidecar next to the render. Keep source assets and rendered videos outside the public code repository.
+
+`examples/seattle-road-trip.json` is a complete edit recipe with varied pacing, per-shot color, English location slates, a portrait Rainier insert, a Space Needle flyover at night, and clip-specific contrast, gamma, and sharpness. It references footage and music that are intentionally not included; place your own files under the configured media folders or edit the paths before rendering.
 
 ## Usage
 
@@ -73,7 +77,7 @@ Use `--probe` to review clip metadata first. The output is written to a temporar
 
 ## Mask-guided image processing
 
-`tripimage` applies local detail sharpening and an optional highlight lift to existing pixels. It never creates, removes, or relocates image content. Land and water use separate sharpening strengths; smooth regions and strong boundaries are protected to reduce noise and halos.
+`tripimage` applies mask-guided local sharpening and an optional lightness lift to existing pixels. It does not synthesize or move scene content, though the edited pixels and JPEG encoding can change their values. Land and water use separate sharpening strengths. A local texture gate leaves smooth areas alone, masks fade inward from their edges to protect shorelines, and the high-pass detail is clipped to limit ringing and halos. This is a detail-enhancement tool, not a dehaze or color-grading filter.
 
 The most precise workflow is to paint grayscale masks in an image editor such as Photoshop and export them at any size. White selects the adjustment area, black protects it, and gray gives a soft blend. Use a land mask for trees and rocks, a water mask for ripples, a boat mask to protect a subject, and a highlight mask to lift only reflected light:
 
@@ -89,7 +93,7 @@ tripimage source.jpg preview.jpg \
   --mask-preview preview-masks.jpg
 ```
 
-`--mask-preview` writes a color overlay so selections can be checked before using the processed image. Automatic region masks are available with a compatible MaskFormer ADE20K ONNX model and its `id2label` JSON file:
+`--mask-preview` writes a color overlay so selections can be checked before using the processed image. `--detail-mask` can restrict sharpening to a hand-painted area; `--sky-mask` can also be included in the mask preview. Automatic region masks are available with a compatible MaskFormer ADE20K ONNX model and its `id2label` JSON file:
 
 ```sh
 tripimage source.jpg preview.jpg \
@@ -98,7 +102,7 @@ tripimage source.jpg preview.jpg \
   --mask-preview preview-masks.jpg
 ```
 
-Painted masks override matching automatic masks. The input is never overwritten. Model files are not bundled; keep downloaded models outside the repository and follow their license terms.
+Painted masks override matching automatic masks. Sharpening defaults are 3.8 for land, 1.8 for water, and a 2 px detail radius; tune them per image and inspect the mask preview, especially around shorelines and small subjects. The input is never overwritten; output dimensions are preserved and available EXIF/ICC metadata is carried forward. Model files are not bundled; keep downloaded models outside the repository and follow their license terms.
 
 ## Attribution
 
