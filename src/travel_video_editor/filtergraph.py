@@ -54,9 +54,20 @@ def build_filtergraph(project: Project) -> str:
                 f"unsharp=5:5:{_f(grade.sharpness)}:3:3:0.0,fps={project.fps},setsar=1,format=yuv420p[v{i}]",
             ])
         else:
+            if shot.zoom > 1.0:
+                scaled_width = round(width * shot.zoom)
+                scaled_height = round(height * shot.zoom)
+                scale_crop = (
+                    f"scale={scaled_width}:{scaled_height}:flags=lanczos,"
+                    f"crop={width}:{image_height}:(iw-{width})/2:(ih-{image_height})/2"
+                )
+            else:
+                scale_crop = (
+                    f"scale={width}:{height}:flags=lanczos,"
+                    f"crop={width}:{image_height}:0:{y}"
+                )
             filters.append(
-                f"[{i}:v]{timed_grade},scale={width}:{height}:flags=lanczos,"
-                f"crop={width}:{image_height}:0:{y},pad={width}:{height}:0:{crop_y}:black,"
+                f"[{i}:v]{timed_grade},{scale_crop},pad={width}:{height}:0:{crop_y}:black,"
                 f"vignette=PI/8,unsharp=5:5:{_f(grade.sharpness)}:3:3:0.0,fps={project.fps},setsar=1,format=yuv420p[v{i}]"
             )
 

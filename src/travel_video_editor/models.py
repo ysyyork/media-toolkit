@@ -38,6 +38,7 @@ class Shot:
     location_subtitle: str = ""
     location_duration: float = 2.6
     vertical_layout: str = "fill"
+    zoom: float = 1.0
 
 
 @dataclass(frozen=True)
@@ -77,6 +78,8 @@ class Project:
                 raise ValueError(f"Unsupported transition in shot {shot.file}")
             if shot.vertical_layout not in {"fill", "portrait_blur"}:
                 raise ValueError(f"Unsupported vertical layout in shot {shot.file}")
+            if not 1.0 <= shot.zoom <= 2.0:
+                raise ValueError(f"Zoom must be between 1.0 and 2.0 in shot {shot.file}")
         if self.threads < 1 or not 0 <= self.crf <= 51:
             raise ValueError("Invalid encoder settings")
 
@@ -114,6 +117,7 @@ def load_project(path: Path) -> Project:
             location_subtitle=item.get("location_subtitle", ""),
             location_duration=float(item.get("location_duration", 2.6)),
             vertical_layout=item.get("vertical_layout", "fill"),
+            zoom=float(item.get("zoom", 1.0)),
         )
         for item in raw["shots"]
     )

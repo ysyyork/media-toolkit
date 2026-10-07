@@ -20,21 +20,23 @@
       "duration": 4.2,
       "speed": 1.1,
       "grade": {
-        "contrast": 1.14,
+        "contrast": 1.18,
         "brightness": 0.0,
-        "saturation": 1.14,
-        "red": 0.012,
-        "green": 0.02,
-        "blue": -0.008,
+        "saturation": 1.254,
+        "red": 0.018000000000000002,
+        "green": 0.024,
+        "blue": -0.012,
         "gamma": 1.0,
-        "sharpness": 0.24
+        "sharpness": 0.24,
+        "curve": "medium_contrast"
       },
       "transition": "dissolve",
       "transition_duration": 0.18,
       "location_title": "NORTH CASCADES",
       "location_subtitle": "WASHINGTON",
       "vertical_layout": "fill",
-      "location_duration": 3.0
+      "location_duration": 3.0,
+      "zoom": 1.0
     },
     {
       "file": "DJI_20260619170029_0014_D.MP4",
@@ -42,37 +44,41 @@
       "duration": 3.6,
       "speed": 1.2,
       "grade": {
-        "contrast": 1.14,
+        "contrast": 1.18,
         "brightness": 0.0,
-        "saturation": 1.13,
-        "red": 0.011,
-        "green": 0.022,
-        "blue": -0.008,
+        "saturation": 1.2429999999999999,
+        "red": 0.017,
+        "green": 0.026,
+        "blue": -0.012,
         "gamma": 1.0,
-        "sharpness": 0.24
+        "sharpness": 0.24,
+        "curve": "medium_contrast"
       },
       "transition": "dissolve",
       "transition_duration": 0.18,
-      "vertical_layout": "fill"
+      "vertical_layout": "fill",
+      "zoom": 1.0
     },
     {
-      "file": "DJI_20260619173416_0034_D.MP4",
-      "start": 20.0,
-      "duration": 3.5,
+      "file": "DJI_20260619185954_0035_D.MP4",
+      "start": 1.5,
+      "duration": 4.0,
       "speed": 1.0,
       "grade": {
         "contrast": 1.18,
-        "brightness": -0.012,
-        "saturation": 1.18,
-        "red": 0.016,
-        "green": 0.02,
-        "blue": -0.01,
-        "gamma": 0.97,
-        "sharpness": 0.28
+        "brightness": -0.008,
+        "saturation": 1.26,
+        "red": 0.019,
+        "green": 0.026,
+        "blue": -0.012,
+        "gamma": 0.98,
+        "sharpness": 0.3,
+        "curve": "medium_contrast"
       },
       "transition": "dissolve",
       "transition_duration": 0.18,
-      "vertical_layout": "fill"
+      "vertical_layout": "fill",
+      "zoom": 1.0
     },
     {
       "file": "DJI_20260619210335_0069_D.MP4",
@@ -80,21 +86,23 @@
       "duration": 3.5,
       "speed": 1.0,
       "grade": {
-        "contrast": 1.18,
+        "contrast": 1.2,
         "brightness": -0.012,
-        "saturation": 1.18,
-        "red": 0.016,
-        "green": 0.02,
-        "blue": -0.01,
+        "saturation": 1.298,
+        "red": 0.022,
+        "green": 0.024,
+        "blue": -0.014,
         "gamma": 0.97,
-        "sharpness": 0.28
+        "sharpness": 0.28,
+        "curve": "medium_contrast"
       },
       "transition": "dissolve",
       "transition_duration": 0.18,
       "vertical_layout": "fill",
       "location_title": "NORTH CASCADES",
       "location_subtitle": "GOLDEN HOUR  /  WASHINGTON",
-      "location_duration": 3.0
+      "location_duration": 3.0,
+      "zoom": 1.0
     },
     {
       "file": "DJI_20260619225833_0080_D.MP4",
@@ -102,21 +110,23 @@
       "duration": 7.5,
       "speed": 1.0,
       "grade": {
-        "contrast": 1.13,
+        "contrast": 1.14,
         "brightness": -0.004,
-        "saturation": 1.16,
-        "red": 0.009,
-        "green": 0.012,
-        "blue": -0.003,
+        "saturation": 1.2,
+        "red": 0.012,
+        "green": 0.015,
+        "blue": -0.006,
         "gamma": 1.02,
-        "sharpness": 0.28
+        "sharpness": 0.28,
+        "curve": "none"
       },
       "transition": "dissolve",
       "transition_duration": 0.18,
       "location_title": "SEATTLE AFTER DARK",
       "location_subtitle": "JUNE 19  /  WASHINGTON",
       "location_duration": 3.0,
-      "vertical_layout": "fill"
+      "vertical_layout": "fill",
+      "zoom": 1.0
     },
     {
       "file": "DJI_20260620134057_0094_D.MP4",
@@ -124,12 +134,12 @@
       "duration": 3.5,
       "speed": 1.2,
       "grade": {
-        "contrast": 1.17,
+        "contrast": 1.2,
         "brightness": -0.025,
-        "saturation": 1.2,
-        "red": 0.014,
-        "green": 0.02,
-        "blue": -0.008,
+        "saturation": 1.28,
+        "red": 0.02,
+        "green": 0.024,
+        "blue": -0.012,
         "gamma": 0.97,
         "sharpness": 0.32,
         "curve": "medium_contrast"
@@ -139,7 +149,8 @@
       "location_title": "OLYMPIC PENINSULA",
       "location_subtitle": "WASHINGTON",
       "vertical_layout": "fill",
-      "location_duration": 2.666666666666667
+      "location_duration": 2.666666666666667,
+      "zoom": 1.0
     },
     {
       "file": "DJI_20260620163733_0137_D.MP4",
@@ -147,21 +158,23 @@
       "duration": 3.2,
       "speed": 1.15,
       "grade": {
-        "contrast": 1.16,
+        "contrast": 1.18,
         "brightness": -0.008,
-        "saturation": 1.18,
-        "red": 0.012,
-        "green": 0.018,
-        "blue": -0.006,
+        "saturation": 1.298,
+        "red": 0.018000000000000002,
+        "green": 0.022,
+        "blue": -0.01,
         "gamma": 0.98,
-        "sharpness": 0.32
+        "sharpness": 0.32,
+        "curve": "medium_contrast"
       },
       "transition": "dissolve",
       "transition_duration": 0.18,
       "vertical_layout": "fill",
       "location_title": "OLYMPIC MOUNTAINS",
       "location_subtitle": "OLYMPIC NATIONAL PARK",
-      "location_duration": 2.5326086956521743
+      "location_duration": 2.5326086956521743,
+      "zoom": 1.0
     },
     {
       "file": "DJI_20260620184950_0165_D.MP4",
@@ -169,18 +182,20 @@
       "duration": 2.5,
       "speed": 1.0,
       "grade": {
-        "contrast": 1.16,
+        "contrast": 1.18,
         "brightness": -0.008,
-        "saturation": 1.18,
-        "red": 0.012,
-        "green": 0.018,
-        "blue": -0.006,
+        "saturation": 1.298,
+        "red": 0.018000000000000002,
+        "green": 0.022,
+        "blue": -0.01,
         "gamma": 0.98,
-        "sharpness": 0.32
+        "sharpness": 0.32,
+        "curve": "medium_contrast"
       },
       "transition": "dissolve",
       "transition_duration": 0.18,
-      "vertical_layout": "fill"
+      "vertical_layout": "fill",
+      "zoom": 1.0
     },
     {
       "file": "DJI_20260620185349_0174_D.MP4",
@@ -188,21 +203,23 @@
       "duration": 3.5,
       "speed": 1.2,
       "grade": {
-        "contrast": 1.18,
+        "contrast": 1.2,
         "brightness": -0.008,
-        "saturation": 1.16,
-        "red": 0.012,
-        "green": 0.015,
-        "blue": -0.006,
+        "saturation": 1.276,
+        "red": 0.018000000000000002,
+        "green": 0.019,
+        "blue": -0.01,
         "gamma": 0.98,
-        "sharpness": 0.3
+        "sharpness": 0.3,
+        "curve": "medium_contrast"
       },
       "transition": "dissolve",
       "transition_duration": 0.18,
       "location_title": "LAKE CRESCENT",
       "location_subtitle": "OLYMPIC NATIONAL PARK",
       "vertical_layout": "fill",
-      "location_duration": 2.666666666666667
+      "location_duration": 2.666666666666667,
+      "zoom": 1.0
     },
     {
       "file": "DJI_20260620204319_0180_D.MP4",
@@ -210,21 +227,44 @@
       "duration": 2.6,
       "speed": 1.0,
       "grade": {
-        "contrast": 1.18,
+        "contrast": 1.2,
         "brightness": -0.008,
-        "saturation": 1.16,
-        "red": 0.012,
-        "green": 0.015,
-        "blue": -0.006,
+        "saturation": 1.276,
+        "red": 0.018000000000000002,
+        "green": 0.019,
+        "blue": -0.01,
         "gamma": 0.98,
-        "sharpness": 0.3
+        "sharpness": 0.3,
+        "curve": "medium_contrast"
       },
       "transition": "dissolve",
       "transition_duration": 0.18,
       "vertical_layout": "fill",
-      "location_title": "PACIFIC COAST",
-      "location_subtitle": "OLYMPIC PENINSULA",
-      "location_duration": 2.35
+      "zoom": 1.0
+    },
+    {
+      "file": "DJI_20260620204917_0189_D.MP4",
+      "start": 12.5,
+      "duration": 3.2,
+      "speed": 1.0,
+      "grade": {
+        "contrast": 1.18,
+        "brightness": -0.005,
+        "saturation": 1.28,
+        "red": 0.02,
+        "green": 0.026,
+        "blue": -0.012,
+        "gamma": 0.99,
+        "sharpness": 0.32,
+        "curve": "medium_contrast"
+      },
+      "transition": "dissolve",
+      "transition_duration": 0.18,
+      "vertical_layout": "fill",
+      "zoom": 1.3,
+      "location_title": "OLYMPIC COAST",
+      "location_subtitle": "SEA OTTERS  /  WASHINGTON",
+      "location_duration": 2.95
     },
     {
       "file": "DJI_20260620205303_0193_D.MP4",
@@ -232,21 +272,23 @@
       "duration": 3.5,
       "speed": 1.2,
       "grade": {
-        "contrast": 1.13,
+        "contrast": 1.18,
         "brightness": -0.008,
-        "saturation": 1.1,
-        "red": 0.013,
-        "green": 0.021,
-        "blue": -0.004,
+        "saturation": 1.2100000000000002,
+        "red": 0.019,
+        "green": 0.025,
+        "blue": -0.008,
         "gamma": 1.0,
-        "sharpness": 0.24
+        "sharpness": 0.24,
+        "curve": "medium_contrast"
       },
       "transition": "dissolve",
       "transition_duration": 0.18,
       "location_title": "OLYMPIC COAST",
       "location_subtitle": "PACIFIC OCEAN",
       "vertical_layout": "fill",
-      "location_duration": 2.666666666666667
+      "location_duration": 2.666666666666667,
+      "zoom": 1.0
     },
     {
       "file": "DJI_20260621131903_0200_D.MP4",
@@ -254,21 +296,23 @@
       "duration": 3.6,
       "speed": 1.2,
       "grade": {
-        "contrast": 1.16,
+        "contrast": 1.18,
         "brightness": -0.006,
-        "saturation": 1.18,
-        "red": 0.014,
-        "green": 0.018,
-        "blue": -0.006,
+        "saturation": 1.298,
+        "red": 0.02,
+        "green": 0.022,
+        "blue": -0.01,
         "gamma": 1.0,
-        "sharpness": 0.3
+        "sharpness": 0.3,
+        "curve": "medium_contrast"
       },
       "transition": "dissolve",
       "transition_duration": 0.18,
       "location_title": "SEATTLE",
       "location_subtitle": "JUNE 21  /  WASHINGTON",
       "vertical_layout": "fill",
-      "location_duration": 2.75
+      "location_duration": 2.75,
+      "zoom": 1.0
     },
     {
       "file": "DJI_20260621133126_0214_D.MP4",
@@ -276,21 +320,23 @@
       "duration": 3.0,
       "speed": 1.1,
       "grade": {
-        "contrast": 1.16,
+        "contrast": 1.18,
         "brightness": -0.006,
-        "saturation": 1.14,
-        "red": 0.012,
-        "green": 0.018,
-        "blue": -0.006,
+        "saturation": 1.254,
+        "red": 0.018000000000000002,
+        "green": 0.022,
+        "blue": -0.01,
         "gamma": 1.01,
-        "sharpness": 0.28
+        "sharpness": 0.28,
+        "curve": "medium_contrast"
       },
       "transition": "dissolve",
       "transition_duration": 0.18,
       "vertical_layout": "fill",
       "location_title": "SEATTLE WATERFRONT",
       "location_subtitle": "DOWNTOWN & HARBOR",
-      "location_duration": 2.477272727272727
+      "location_duration": 2.477272727272727,
+      "zoom": 1.0
     },
     {
       "file": "DJI_20260621135525_0237_D.MP4",
@@ -298,21 +344,23 @@
       "duration": 3.5,
       "speed": 1.0,
       "grade": {
-        "contrast": 1.16,
+        "contrast": 1.18,
         "brightness": -0.006,
-        "saturation": 1.18,
-        "red": 0.014,
-        "green": 0.018,
-        "blue": -0.006,
+        "saturation": 1.298,
+        "red": 0.02,
+        "green": 0.022,
+        "blue": -0.01,
         "gamma": 1.0,
-        "sharpness": 0.3
+        "sharpness": 0.3,
+        "curve": "medium_contrast"
       },
       "transition": "dissolve",
       "transition_duration": 0.18,
       "vertical_layout": "fill",
       "location_title": "PUGET SOUND",
       "location_subtitle": "FERRY CROSSING",
-      "location_duration": 3.0
+      "location_duration": 3.0,
+      "zoom": 1.0
     },
     {
       "file": "DJI_20260621152323_0248_D.MP4",
@@ -320,21 +368,23 @@
       "duration": 3.5,
       "speed": 1.0,
       "grade": {
-        "contrast": 1.15,
+        "contrast": 1.18,
         "brightness": -0.008,
-        "saturation": 1.16,
-        "red": 0.014,
-        "green": 0.018,
-        "blue": -0.006,
+        "saturation": 1.276,
+        "red": 0.02,
+        "green": 0.022,
+        "blue": -0.01,
         "gamma": 1.0,
-        "sharpness": 0.24
+        "sharpness": 0.24,
+        "curve": "medium_contrast"
       },
       "transition": "dissolve",
       "transition_duration": 0.18,
       "location_title": "LAKE WASHINGTON",
       "location_subtitle": "SEATTLE AREA",
       "location_duration": 3.0,
-      "vertical_layout": "fill"
+      "vertical_layout": "fill",
+      "zoom": 1.0
     },
     {
       "file": "DJI_20260621153320_0275_D.MP4",
@@ -342,21 +392,23 @@
       "duration": 4.2,
       "speed": 1.0,
       "grade": {
-        "contrast": 1.18,
+        "contrast": 1.2,
         "brightness": -0.008,
-        "saturation": 1.12,
-        "red": 0.012,
-        "green": 0.017,
-        "blue": -0.01,
+        "saturation": 1.2320000000000002,
+        "red": 0.018000000000000002,
+        "green": 0.021,
+        "blue": -0.014,
         "gamma": 1.0,
-        "sharpness": 0.24
+        "sharpness": 0.24,
+        "curve": "medium_contrast"
       },
       "transition": "dissolve",
       "transition_duration": 0.18,
       "location_title": "MOUNT RAINIER",
       "location_subtitle": "JUNE 21  /  WASHINGTON",
       "location_duration": 3.0,
-      "vertical_layout": "portrait_blur"
+      "vertical_layout": "portrait_blur",
+      "zoom": 1.0
     }
   ],
   "music_title": "Road Trip",
