@@ -30,8 +30,8 @@ def build_filtergraph(project: Project) -> str:
             f"rm={_f(grade.red*.4)}:gm={_f(grade.green*.4)}:bm={_f(grade.blue*.4)}:"
             f"rh={_f(grade.red)}:gh={_f(grade.green)}:bh={_f(grade.blue)},"
             f"scale={width}:{height}:flags=lanczos,crop={width}:{image_height}:0:{y},"
-            f"pad={width}:{height}:0:{crop_y}:black,vignette=PI/5,"
-            "unsharp=5:5:0.28:3:3:0.0,fps=" + str(project.fps) + ",setsar=1,format=yuv420p"
+            f"pad={width}:{height}:0:{crop_y}:black,vignette=PI/8,"
+            "unsharp=5:5:0.20:3:3:0.0,fps=" + str(project.fps) + ",setsar=1,format=yuv420p"
             f"[v{i}]"
         )
 
@@ -47,16 +47,19 @@ def build_filtergraph(project: Project) -> str:
     total = project.total_duration
     fade_out = max(0.0, total - 0.85)
     credits_start = max(0.0, total - 4.2)
+    title_x = round(width * 0.065)
+    title_y = crop_y + round(image_height * 0.11)
+    music_credit = "Music: " + project.music_title + " - " + project.music_creator + " | CC BY 4.0"
     filters.append(
         f"[{previous}]"
-        "drawtext=fontfile=/System/Library/Fonts/Supplemental/Georgia.ttf:"
-        f"text='{_drawtext(project.title)}':fontcolor=white:fontsize=112:shadowcolor=black@0.65:shadowx=2:shadowy=2:"
-        f"x=(w-text_w)/2:y={crop_y+round(image_height*.69)}:enable='between(t,0,4.8)',"
-        "drawtext=fontfile=/System/Library/Fonts/Supplemental/Georgia.ttf:"
-        f"text='{_drawtext(project.subtitle)}':fontcolor=white:fontsize=44:shadowcolor=black@0.65:shadowx=1:shadowy=1:"
-        f"x=(w-text_w)/2:y={crop_y+round(image_height*.79)}:enable='between(t,0,4.8)',"
         "drawtext=fontfile=/System/Library/Fonts/Supplemental/Arial.ttf:"
-        f"text='Music\\: Reunited - Kevin MacLeod | CC BY 4.0':fontcolor=white:fontsize=32:"
+        f"text='{_drawtext(project.title)}':fontcolor=white:fontsize=82:shadowcolor=black@0.48:shadowx=2:shadowy=2:"
+        f"x={title_x}:y={title_y}:enable='between(t,0,4.0)',"
+        "drawtext=fontfile=/System/Library/Fonts/Supplemental/Arial.ttf:"
+        f"text='{_drawtext(project.subtitle)}':fontcolor=white:fontsize=38:shadowcolor=black@0.48:shadowx=1:shadowy=1:"
+        f"x={title_x}:y={title_y+100}:enable='between(t,0,4.0)',"
+        "drawtext=fontfile=/System/Library/Fonts/Supplemental/Arial.ttf:"
+        f"text='{_drawtext(music_credit)}':fontcolor=white:fontsize=32:"
         f"x=108:y={height-84}:enable='between(t,{_f(credits_start)},{_f(total)})',"
         f"fade=t=in:st=0:d=1.0,fade=t=out:st={_f(fade_out)}:d=0.85,format=yuv420p[outv]"
     )
