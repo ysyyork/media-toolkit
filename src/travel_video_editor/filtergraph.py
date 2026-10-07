@@ -8,6 +8,12 @@ def _f(value: float) -> str:
     return f"{value:.5f}".rstrip("0").rstrip(".")
 
 
+def _drawtext(value: str) -> str:
+    """Escape text values for FFmpeg's filtergraph/drawtext parser."""
+    return (value.replace("\\", "\\\\").replace("'", "\\'")
+            .replace(":", "\\:").replace(",", "\\,"))
+
+
 def build_filtergraph(project: Project) -> str:
     width, height = project.width, project.height
     image_height = round(width / project.aspect_ratio)
@@ -44,10 +50,10 @@ def build_filtergraph(project: Project) -> str:
     filters.append(
         f"[{previous}]"
         "drawtext=fontfile=/System/Library/Fonts/Supplemental/Georgia.ttf:"
-        f"text='{project.title}':fontcolor=white:fontsize=112:shadowcolor=black@0.65:shadowx=2:shadowy=2:"
+        f"text='{_drawtext(project.title)}':fontcolor=white:fontsize=112:shadowcolor=black@0.65:shadowx=2:shadowy=2:"
         f"x=(w-text_w)/2:y={crop_y+round(image_height*.69)}:enable='between(t,0,4.8)',"
         "drawtext=fontfile=/System/Library/Fonts/Supplemental/Georgia.ttf:"
-        f"text='{project.subtitle}':fontcolor=white:fontsize=44:shadowcolor=black@0.65:shadowx=1:shadowy=1:"
+        f"text='{_drawtext(project.subtitle)}':fontcolor=white:fontsize=44:shadowcolor=black@0.65:shadowx=1:shadowy=1:"
         f"x=(w-text_w)/2:y={crop_y+round(image_height*.79)}:enable='between(t,0,4.8)',"
         "drawtext=fontfile=/System/Library/Fonts/Supplemental/Arial.ttf:"
         f"text='Music\\: Reunited - Kevin MacLeod | CC BY 4.0':fontcolor=white:fontsize=32:"
