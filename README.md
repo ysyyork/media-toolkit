@@ -1,4 +1,4 @@
-# Travel Media Toolkit
+# Media Toolkit
 
 A small Python toolkit for assembling cinematic travel edits with FFmpeg and making mask-guided photo adjustments. Video project data (`models`), timeline math (`timeline`), filter-graph construction (`filtergraph`), rendering (`render`), media inspection (`probe`), attribution (`credits`), and the video CLI (`cli`) stay separate from image processing (`image_processing`, `image_cli`). FFmpeg invocations use argument lists, so filenames with spaces are handled safely.
 

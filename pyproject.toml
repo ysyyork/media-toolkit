@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "travel-media-toolkit"
+name = "media-toolkit"
 version = "0.1.0"
 description = "A Python toolkit for travel video editing and mask-guided photo processing"
 readme = "README.md"

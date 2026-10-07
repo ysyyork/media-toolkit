@@ -72,7 +72,7 @@ def semantic_masks(
     except ImportError as exc:  # pragma: no cover - optional dependency
         raise RuntimeError(
             "Automatic masks need the optional semantic dependencies; install "
-            "travel-media-toolkit[image,semantic]."
+            "media-toolkit[image,semantic]."
         ) from exc
 
     labels_raw = json.loads(labels_path.read_text(encoding="utf-8"))
