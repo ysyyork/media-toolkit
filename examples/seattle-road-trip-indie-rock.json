@@ -70,7 +70,19 @@
       "location_title": "NORTH CASCADES",
       "location_subtitle": "GOLDEN HOUR  /  WASHINGTON",
       "location_duration": 3.0,
-      "zoom": 1.0
+      "zoom": 1.0,
+      "grade": {
+        "contrast": 1.22,
+        "brightness": 0.045,
+        "saturation": 1.06,
+        "red": 0.012,
+        "green": 0.008,
+        "blue": -0.018,
+        "gamma": 1.08,
+        "gamma_weight": 0.82,
+        "sharpness": 0.24,
+        "curve": "none"
+      }
     },
     {
       "file": "DJI_20260619225833_0080_D.MP4",
