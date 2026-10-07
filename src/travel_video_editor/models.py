@@ -5,6 +5,7 @@ from dataclasses import dataclass, field
 import json
 from pathlib import Path
 from typing import Any
+from .looks import get_look
 
 
 @dataclass(frozen=True)
@@ -63,10 +64,16 @@ class Project:
     threads: int = 18
     preset: str = "fast"
     crf: int = 17
+    grade_preset: str = "neutral"
+    required_shots: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         if not self.shots:
             raise ValueError("Project must contain at least one shot")
+        included = {shot.file for shot in self.shots}
+        missing = sorted(set(self.required_shots) - included)
+        if missing:
+            raise ValueError("Required highlight shot(s) missing from timeline: " + ", ".join(missing))
         if self.width < 2 or self.height < 2 or self.fps < 1:
             raise ValueError("Output dimensions and frame rate must be positive")
         for shot in self.shots:
@@ -103,13 +110,15 @@ def load_project(path: Path) -> Project:
     media_root = (base / raw.get("media_root", "..")).resolve()
     music = (base / raw["music"]).resolve()
     output = (base / raw["output"]).resolve()
+    grade_preset = raw.get("grade_preset", "neutral")
+    base_grade = get_look(grade_preset)
     shots = tuple(
         Shot(
             file=item["file"],
             start=float(item["start"]),
             duration=float(item["duration"]),
             speed=float(item.get("speed", 1.0)),
-            grade=Grade(**item.get("grade", {})),
+            grade=Grade(**{**base_grade, **item.get("grade", {})}),
             transition=item.get("transition", "fade"),
             transition_duration=float(item.get("transition_duration", 0.45)),
             crop_y=item.get("crop_y"),
@@ -142,4 +151,6 @@ def load_project(path: Path) -> Project:
         threads=int(raw.get("threads", 18)),
         preset=raw.get("preset", "fast"),
         crf=int(raw.get("crf", 17)),
+        grade_preset=grade_preset,
+        required_shots=tuple(raw.get("required_shots", ())),
     )

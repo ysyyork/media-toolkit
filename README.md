@@ -30,6 +30,8 @@ python3 -m pip install '.[image,semantic]'
 
 Create a JSON project file that points at your own footage and soundtrack. Paths are relative to the manifest unless absolute. Each shot uses a source in-point and source duration; `speed` affects playback duration. The transition on each shot describes how it enters (the first shot's value is ignored). Optional `location_title`, `location_subtitle`, and `location_duration` fields add a timed lower-left place slate. Set `vertical_layout` to `portrait_blur` to preserve a portrait clip in a landscape edit with a softened full-frame background. Set `zoom` between 1.0 and 2.0 to center-crop a shot when a distant subject needs a modest emphasis.
 
+Set a project-level `grade_preset` to `summer_film_pop` for a brighter, warmer travel look with a firmer contrast curve and visible fine sharpening. A shot's `grade` values override only matching preset fields, so night footage can keep a restrained, noise-safe grade. Add important filenames to `required_shots`; loading the project fails if any of those highlights are later removed from the timeline. This keeps must-have moments such as takeoff, wildlife, or a city aerial from being dropped during revisions.
+
 ```json
 {
   "title": "A Summer Journey",
@@ -62,9 +64,9 @@ Create a JSON project file that points at your own footage and soundtrack. Paths
 }
 ```
 
-`grade` supports per-shot contrast, brightness, saturation, RGB color balance, gamma, sharpening, and optional contrast-curve presets (`medium_contrast` or `strong_contrast`) so bright landscapes and night footage can be tuned separately. The renderer applies a widescreen crop with letterbox bars, a subtle vignette, title/location/credit overlays, audio fades, and H.264/AAC output. The optional `music_title`, `music_creator`, `music_source`, `music_license`, and `music_license_url` fields produce a credits sidecar next to the render. Keep source assets and rendered videos outside the public code repository.
+`grade` supports per-shot contrast, brightness, saturation, RGB color balance, gamma, sharpening, and optional contrast-curve presets (`medium_contrast` or `strong_contrast`) so bright landscapes and night footage can be tuned separately. For each finished export, inspect representative frames from the opening, every required highlight, transitions, and the ending at full display size; then play the whole cut and confirm the soundtrack does not end before the picture. The renderer applies a widescreen crop with letterbox bars, a subtle vignette, title/location/credit overlays, audio fades, and H.264/AAC output. The optional `music_title`, `music_creator`, `music_source`, `music_license`, and `music_license_url` fields produce a credits sidecar next to the render. Keep source assets and rendered videos outside the public code repository.
 
-`examples/seattle-road-trip.json` is a complete edit recipe with varied pacing, per-shot color, English location slates, a portrait Rainier insert, a Space Needle flyover at night, and clip-specific contrast, gamma, and sharpness. It references footage and music that are intentionally not included; place your own files under the configured media folders or edit the paths before rendering.
+`examples/seattle-road-trip.json` and `examples/seattle-road-trip-indie-rock.json` are complete edit recipes with varied pacing, English location slates, a portrait Rainier insert, a Space Needle flyover at night, and a Bellevue aerial. The indie-rock recipe also demonstrates the reusable bright film look and required-highlight guard. Both reference footage and music that are intentionally not included; place your own files under the configured media folders or edit the paths before rendering.
 
 ## Usage
 
