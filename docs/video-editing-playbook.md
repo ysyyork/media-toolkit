@@ -79,3 +79,13 @@ Assess actual subject displacement and parallax over the proposed output duratio
 Use `tripreview /absolute/path/to/output --port 8769` for a loopback-only browser media review server with HTTP byte ranges. Native video seeking requires range support; Python's basic HTTP server may report no seekable range and silently restart playback. Confirm the player time after seeking. Stop the server after review.
 
 Probe the full user-provided audio before fixing the edit duration. If the user permits a longer cut, use the available recording rather than reusing an earlier trimmed excerpt. Check its tail for silence, retain complete source movement, and fade picture and music together before the recording ends. Do not claim a longer soundtrack exists beyond the provided file.
+
+### Apple GPU filters versus hardware video encoding
+
+Keep these capabilities separate in status reports: VideoToolbox hardware encoding uses dedicated media hardware; it does not prove CPU filters have moved to GPU. A system-wide GPU percentage does not attribute work to FFmpeg. The installed `h264_videotoolbox` defaults to `allow_sw=false`; preserve that or set it explicitly when hardware-only encoding is required.
+
+The October 7 host exposes `coreimage`, `scale_vt`, and `transpose_vt`. Core Image's inventory includes `CIColorControls`, `CIToneCurve`, `CITemperatureAndTint`, `CIColorCube`, `CISharpenLuminance`, and `CIUnsharpMask`. This makes a GPU color/sharpening backend feasible, but the current renderer does not use it. FFmpeg's Core Image wrapper uses an OpenGL context; a native Core Image context backed by a selected Metal device is a suitable long-term Apple pipeline.
+
+A future Metal/Core Image backend should keep decoded frames as pixel buffers/textures, apply scene grades and LUTs, implement the existing spatial dehaze as compute kernels, composite titles and two-input transitions, then send buffers to VideoToolbox. Preserve the CPU backend and compare scene appearance, temporal stability, text sizing, color management, and measured throughput before selecting the new backend for final output. Do not substitute saturation/contrast for the existing dehaze algorithm, or imply a two-input transition works merely because its name appears in the inventory. The native GPU backend is not implemented yet.
+
+References: https://developer.apple.com/videos/play/wwdc2020/10008/ ; https://ffmpeg.org/ffmpeg-filters.html#coreimage ; https://developer.apple.com/videos/play/wwdc2021/10153/
