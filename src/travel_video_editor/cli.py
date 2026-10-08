@@ -9,6 +9,7 @@ from .probe import ffprobe
 from .qa import verify_render
 from .render import FFmpegRenderer
 from .source_review import build_source_review
+from .motion_review import build_motion_review
 
 
 def main() -> None:
@@ -19,10 +20,15 @@ def main() -> None:
     actions.add_argument("--qc", action="store_true", help="Verify the existing render and make a review contact sheet")
     actions.add_argument("--preview", action="store_true", help="Render a 720p review copy with Apple VideoToolbox on macOS")
     actions.add_argument("--source-audit", action="store_true", help="Sample every source video and make paged, timeline-aware contact sheets")
+    actions.add_argument("--motion-review", action="store_true", help="Sample selected source ranges and their edit-boundary handles")
     parser.add_argument("--sample-interval", type=float, default=2.0, help="Seconds between source-review frames (default: 2)")
     parser.add_argument("--jobs", type=int, default=4, help="Concurrent source probes and thumbnail decodes (default: 4)")
     args = parser.parse_args()
     project = load_project(args.project)
+    if args.motion_review:
+        sheets = build_motion_review(project, interval=0.5, workers=args.jobs)
+        print(f"Motion review: {len(sheets)} sheets under {sheets[0].parent}")
+        return
     if args.probe:
         for shot in project.shots:
             print(shot.file, ffprobe(project.source_path(shot)).get("format", {}).get("duration"))

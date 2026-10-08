@@ -47,3 +47,12 @@ Carry this brief into every revision of the Seattle / Olympic / North Cascades t
 - The current reviewed render is `Seattle_Summer_Road_Trip_Artistic_Neutral_v21.mp4` (3840×2160, 30 fps, 62.1 seconds, H.264/AAC via VideoToolbox, about 41 Mb/s). Haze reduction is limited to the veiled Olympic Peninsula and golden-hour valley; the coast uses milder treatment to preserve marine atmosphere. Full-resolution key frames and the full-file decode were checked before delivery.
 - The final sequence holds the Mount Rainier view, then uses the opening five seconds of `DJI_20260621144304_0247_D.MP4` at 1.75× for a quicker Lake Washington aerial reveal. This is a rising/forward reveal, not a strong gimbal tilt-up; the cut description should remain accurate.
 - The original v11 render was 3840×2160, 30 fps H.264/AAC, about 64 seconds, encoded with Apple VideoToolbox. The current preview uses the same composition and grade at 720p for review.
+
+## Motion and regional color revision (v28)
+
+- North Cascades daylight should have a perceptible yellow-green summer warmth. Keep snow neutral and grade Seattle night and Olympic coast independently.
+- Keep both the closer Olympic snowy peaks (0137) and wider summit panorama (0142).
+- Inspect every selected range with at least one second of source handles; dense half-second sheets locate candidate boundaries, followed by preview playback. Use `tripcut project.json --motion-review --jobs 3`.
+- Preserve actual action: Space Needle flyover should pass the tower, otter interaction should finish its dive, and sunset tilt should get a scenic hold after the peaks emerge. The sunset source range now extends from 16–19.5s to 16–21.5s.
+- Avoid the early fast yaw in 0247; use a later stable lake view. Shift 0214 past the initial cropped tower roof. Keep the real takeoff and complete Lake Crescent tilt.
+- Fund important motion by trimming scenic holds, while matching the user-provided audio to approximately 78 seconds. Reduce the otter push-in to 1.24x to preserve source detail.

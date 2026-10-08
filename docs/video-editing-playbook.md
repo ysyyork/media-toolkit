@@ -65,3 +65,7 @@ Use this workflow for travel films made with `tripcut`. It captures the practica
 - Distinguish a true camera tilt from a rising/forward reveal, a pan, or a static aerial. Describe the motion the source actually contains.
 - Report the actual output resolution and encoder used. Hardware acceleration does not mean every filter ran on the GPU.
 - Link the selected final by full path and identify it as the final version. Summarize major choices and mention any visible limitation, such as distant wildlife detail.
+
+## Reviewing motion boundaries
+
+Run `tripcut project.json --motion-review --jobs 3` to generate source-time-labelled half-second sheets with one-second edit handles. This requires the `video-review` extra. Review all selected clips, not just new inserts. Extend source preprocessing when extending a dehazed clip: a short intermediate cannot reveal the omitted original tail. Check reveals, flyovers, wildlife actions, and framing through the out-point. Then play the preview with sound; sampled sheets cannot verify smooth playback. Balance complete motion against total soundtrack duration by shortening less important static holds.
