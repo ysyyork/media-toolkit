@@ -41,6 +41,10 @@ def verify_render(project: Project, ffmpeg: str | None = None) -> tuple[Path, Pa
             f"Unexpected output size {video.get('width')}x{video.get('height')}; "
             f"expected {project.width}x{project.height}"
         )
+    if project.encoder == "hevc_videotoolbox" and video.get("pix_fmt") != "yuv420p10le":
+        raise RuntimeError(
+            f"Expected a 10-bit HEVC output, got pixel format {video.get('pix_fmt')}"
+        )
     duration = float(metadata.get("format", {}).get("duration", 0))
     if abs(duration - project.total_duration) > max(0.5, 2 / project.fps):
         raise RuntimeError(
