@@ -53,6 +53,7 @@ class Shot:
     zoom_end: float | None = None
     center_x: float = 0.5
     center_x_end: float | None = None
+    source_file: str = ""
 
 
 @dataclass(frozen=True)
@@ -85,7 +86,7 @@ class Project:
     def __post_init__(self) -> None:
         if not self.shots:
             raise ValueError("Project must contain at least one shot")
-        included = {shot.file for shot in self.shots}
+        included = {name for shot in self.shots for name in (shot.file, shot.source_file) if name}
         missing = sorted(set(self.required_shots) - included)
         if missing:
             raise ValueError("Required highlight shot(s) missing from timeline: " + ", ".join(missing))
@@ -153,6 +154,7 @@ def load_project(path: Path) -> Project:
             zoom_end=(float(item["zoom_end"]) if item.get("zoom_end") is not None else None),
             center_x=float(item.get("center_x", 0.5)),
             center_x_end=(float(item["center_x_end"]) if item.get("center_x_end") is not None else None),
+            source_file=item.get("source_file", ""),
         )
         for item in raw["shots"]
     )

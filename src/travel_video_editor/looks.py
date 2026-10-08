@@ -14,6 +14,21 @@ LOOK_PRESETS: dict[str, dict[str, float | str]] = {
         "sharpness": 0.24,
         "curve": "none",
     },
+    "artistic_neutral": {
+        # A soft, neutral base with visible color. Set each scene's white
+        # balance separately so sunset, forest, coast, and city keep their
+        # natural character without a global warm or cool cast.
+        "contrast": 1.12,
+        "brightness": 0.010,
+        "saturation": 1.18,
+        "red": 0.0,
+        "green": 0.0,
+        "blue": 0.0,
+        "gamma": 1.03,
+        "gamma_weight": 0.90,
+        "sharpness": 0.24,
+        "curve": "none",
+    },
     "summer_film_pop": {
         # Keep the summer warmth and color while preserving highlight and
         # shadow detail across mixed daylight footage.
