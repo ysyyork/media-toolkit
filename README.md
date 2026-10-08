@@ -90,9 +90,12 @@ tripcut project.json --source-audit --sample-interval 2 --jobs 4
 tripcut project.json
 tripcut project.json --qc
 tripcut project.json --preview
+tripgpu
 ```
 
 Use `--probe` to list each clip's duration first; the source-audit CSV below has resolution, codec, and capture time. Use `--preview` while adjusting the edit: it renders a 720p review copy and uses Apple VideoToolbox H.264 encoding on macOS, keeping the color and framing filters in the same pipeline. Inspect the contact sheet and play the preview; after approval, render the full-resolution manifest. Set `encoder` to `h264_videotoolbox` and `video_bitrate` to a suitable target such as `45M` for a hardware-encoded final on supported Macs. The default `libx264` uses CPU encoding and CRF quality control; VideoToolbox uses bitrate control, so confirm detail and file size on a short preview before choosing it for delivery. Hardware encoding speeds only the encode stage; current FFmpeg color, scaling, overlays, and transitions still run through software filters.
+
+Use `tripgpu` to inspect which hardware APIs, encoders, and related filters your FFmpeg build exposes. It reports build capabilities, not live GPU activity. When `h264_videotoolbox` is selected, tripcut explicitly disables software fallback; an unsupported hardware setup fails visibly instead of silently switching encoders. The experimental FFmpeg `coreimage` filter is reported with its OpenGL and CPU-frame-copy limitation and is not used automatically.
 
 Install `python3 -m pip install '.[video-review]'` to use `--source-audit`. It samples every source video under `media_root` at the requested interval, attempts VideoToolbox decoding on macOS, and creates paged contact sheets with each source filename, source time, and a `USED`/`UNUSED` marker. The CSV records duration, resolution, codec, capture time, and timeline use. Review unused candidates against the timeline before deciding a shot is best; use the sheets to find moments, then inspect promising clips at full motion and resolution.
 

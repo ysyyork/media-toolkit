@@ -142,7 +142,7 @@ def dehaze_range(
     encode_command = [
         ffmpeg, "-hide_banner", "-loglevel", "error", "-y", "-f", "rawvideo",
         "-pixel_format", "bgr24", "-video_size", f"{width}x{height}", "-framerate", str(rate),
-        "-i", "pipe:0", "-an", "-c:v", "h264_videotoolbox", "-b:v", bitrate,
+        "-i", "pipe:0", "-an", "-c:v", "h264_videotoolbox", "-allow_sw", "0", "-b:v", bitrate,
         "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(output),
     ]
     decoder = subprocess.Popen(decode_command, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
