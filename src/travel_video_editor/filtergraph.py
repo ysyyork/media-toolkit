@@ -38,7 +38,12 @@ def build_filtergraph(project: Project) -> str:
     for i, shot in enumerate(project.shots):
         grade = shot.grade
         y = crop_y if shot.crop_y is None else shot.crop_y
-        curve_filter = "" if grade.curve == "none" else f",curves=preset={grade.curve}"
+        if grade.curve == "soft_film":
+            # A restrained print-style S curve: deepen lower mids, give the
+            # landscape midtones more separation, and roll off the top end.
+            curve_filter = ",curves=master='0/0.012 0.10/0.085 0.25/0.23 0.50/0.50 0.75/0.82 0.90/0.94 1/0.985'"
+        else:
+            curve_filter = "" if grade.curve == "none" else f",curves=preset={grade.curve}"
         timed_grade = (
             f"setpts=PTS-STARTPTS,setpts=PTS/{_f(shot.speed)},"
             f"eq=contrast={_f(grade.contrast)}:brightness={_f(grade.brightness)}:saturation={_f(grade.saturation)}:gamma={_f(grade.gamma)}:gamma_weight={_f(grade.gamma_weight)}{curve_filter},"

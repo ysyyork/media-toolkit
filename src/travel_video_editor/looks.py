@@ -51,6 +51,27 @@ LOOK_PRESETS: dict[str, dict[str, float | str]] = {
         "sharpness": 0.24,
         "curve": "medium_contrast",
     },
+    "pnw_artistic": {
+        # A neutral Pacific Northwest print look: richer color, defined lower
+        # mids, a gentle toe, and a soft highlight shoulder. Scene overrides
+        # should still protect blue hour, sunset, and night exposure.
+        "contrast": 1.17,
+        "brightness": 0.006,
+        "saturation": 1.21,
+        "red": 0.0,
+        "green": 0.0,
+        "blue": 0.0,
+        "shadow_red": -0.002,
+        "shadow_green": 0.002,
+        "shadow_blue": 0.004,
+        "highlight_red": 0.008,
+        "highlight_green": 0.003,
+        "highlight_blue": -0.005,
+        "gamma": 1.0,
+        "gamma_weight": 0.9,
+        "sharpness": 0.25,
+        "curve": "soft_film",
+    },
 }
 
 

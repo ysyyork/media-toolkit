@@ -31,7 +31,7 @@ class Grade:
     curve: str = "none"
 
     def __post_init__(self) -> None:
-        if self.curve not in {"none", "medium_contrast", "strong_contrast"}:
+        if self.curve not in {"none", "medium_contrast", "strong_contrast", "soft_film"}:
             raise ValueError(f"Unsupported curve preset: {self.curve}")
 
 
