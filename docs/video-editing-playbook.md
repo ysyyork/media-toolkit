@@ -5,7 +5,7 @@ Use this workflow for travel films made with `tripcut`. It captures the practica
 ## 1. Inventory before editing
 
 1. Keep camera originals read-only and put the manifest, music, previews, and exports in a separate project folder.
-2. Run `tripcut project.json --probe` and note each clip's duration, frame size, frame rate, and capture time.
+2. Run `tripcut project.json --probe` to list each clip's duration. For resolution, frame rate, codec, and capture time, use the source-audit CSV in the next step.
 3. Run `tripcut project.json --source-audit --sample-interval 2 --jobs 4`. Read every contact-sheet page, including unused clips. Use the CSV to filter by capture time, duration, and resolution.
 4. Treat the audit as an index, not a substitute for viewing motion. Open promising unused clips and inspect the complete candidate range at normal speed and at full source resolution. For drone clips, check whether the movement really rises, tilts, pans, or simply translates; similar-looking stills can hide very different motion.
 5. Keep a short candidate log with source filename, in/out points, story purpose, strengths, and rejection reason. Revisit it when a requested beat is missing.
