@@ -41,6 +41,7 @@ Use this workflow for travel films made with `tripcut`. It captures the practica
 ## 5. Preview, inspect, revise, deliver
 
 1. Render a 720p preview with `tripcut project.json --preview`. On supported Macs, use `h264_videotoolbox` for faster hardware encoding. This accelerates encoding; FFmpeg's color, scale, title, and transition filters may still run on the CPU.
+   - On macOS, check `ffmpeg -filters` for `coreimage` before planning GPU color work. Core Image can provide Apple-native color operations, but its presence alone does not prove a given filter runs on the GPU or that the full graph gets faster. Benchmark the same representative 4K shot with matched CPU and Core Image grades, compare the frames for color/tonal differences, and measure the complete pipeline. CPU-only steps and transfers between system and GPU memory can erase the gain. Keep VideoToolbox encoding and GPU filtering documented as separate acceleration stages.
 2. Open the generated contact sheet and map. Check every shot midpoint, transition midpoint, title, wildlife/highlight moment, and final frame for exposure, focus, crop, subject visibility, title quality, and artifacts.
 3. Play the complete preview with sound. Check real motion, pacing, speed changes, transition feel, and that the music fade lands with the picture. A contact sheet alone cannot establish motion quality.
 4. If a requested change is hard to see, or any shot looks wrong, revise the manifest and render another preview. Do not describe an unverified change as complete.
