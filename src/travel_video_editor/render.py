@@ -21,7 +21,9 @@ class FFmpegRenderer:
             args += ["-threads", "3", "-ss", str(shot.start), "-t", str(shot.duration), "-i", str(project.source_path(shot))]
         args += ["-ss", str(project.music_start), "-i", str(project.music)]
         if project.encoder == "h264_videotoolbox":
-            encoder_args = ["-c:v", project.encoder, "-b:v", project.video_bitrate,
+            # Never silently fall back to software when a manifest explicitly
+            # requests Apple's hardware encoder.
+            encoder_args = ["-c:v", project.encoder, "-allow_sw", "0", "-b:v", project.video_bitrate,
                             "-maxrate", project.video_bitrate, "-profile:v", "high", "-level:v", "5.1"]
         else:
             encoder_args = ["-c:v", project.encoder, "-preset", project.preset, "-crf", str(project.crf),
