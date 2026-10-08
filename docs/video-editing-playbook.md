@@ -69,3 +69,7 @@ Use this workflow for travel films made with `tripcut`. It captures the practica
 ## Reviewing motion boundaries
 
 Run `tripcut project.json --motion-review --jobs 3` to generate source-time-labelled half-second sheets with one-second edit handles. This requires the `video-review` extra. Review all selected clips, not just new inserts. Extend source preprocessing when extending a dehazed clip: a short intermediate cannot reveal the omitted original tail. Check reveals, flyovers, wildlife actions, and framing through the out-point. Then play the preview with sound; sampled sheets cannot verify smooth playback. Balance complete motion against total soundtrack duration by shortening less important static holds.
+
+### Movement as a selection criterion
+
+Assess actual subject displacement and parallax over the proposed output duration. Dense frames with a readable subject do not prove the shot has useful movement. Review a longer source interval and consider time compression: a 23-second real pan can occupy five seconds, while accelerating a fixed camera may still appear static. Compare the sped-up preview at its delivery frame rate for abrupt yaw, stutter, or premature exits. Prefer an actual reveal to an invented digital move; retain a shorter scenic hold where the sequence needs breathing room. Compare all nighttime takes by movement, framing, lighting, and distinctiveness instead of treating one famous landmark as the only highlight.
