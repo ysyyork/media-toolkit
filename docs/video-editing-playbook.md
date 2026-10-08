@@ -80,6 +80,16 @@ Use `tripreview /absolute/path/to/output --port 8769` for a loopback-only browse
 
 Probe the full user-provided audio before fixing the edit duration. If the user permits a longer cut, use the available recording rather than reusing an earlier trimmed excerpt. Check its tail for silence, retain complete source movement, and fade picture and music together before the recording ends. Do not claim a longer soundtrack exists beyond the provided file.
 
+### Selective stabilization of moving shots
+
+Fast movement alone is not shake. Compare matched before/after clips at delivery speed; leave smooth pans, reveals, and intentional rotations intact. Use tripstabilize with --width 1280, --before-output, and --bitrate 8M for a small review candidate. Omit --width for a native-resolution intermediate after review. Hardware encoding uses VideoToolbox; motion analysis and correction use CPU vid.stab filters.
+
+The helper defaults to a short four-frame smoothing radius, bounded translation, no rotational correction, and a fixed two-percent edge zoom. Dynamic zoom and virtual-tripod modes are disabled. Recompute motion vectors at final resolution, never reuse preview-resolution transforms for 4K. The intermediate already includes the speed change: reference it at start zero, speed one, and the original duration divided by speed.
+
+Reject candidates that wobble, crop the subject, soften important detail, reveal black edges, or worsen shake. Strong foreground/background parallax can defeat a global fit, especially during ground takeoff. Motion-fit statistics support review but do not prove visual quality; measure translation and rotation separately so one improvement does not hide a regression. Mark each selected intermediate as reviewed and keep the original source reference in the manifest. No global stabilization is enabled by default.
+
+For this trip, takeoff stabilization was rejected after comparison; the city close view's rotational correction was also rejected. Only bounded translation is selected for the Space Needle flyover and Seattle city close view. Prefer the sea-otter source's actual far-to-near movement to invented digital zoom, which magnifies source softness.
+
 ### Apple GPU filters versus hardware video encoding
 
 Keep these capabilities separate in status reports: VideoToolbox hardware encoding uses dedicated media hardware; it does not prove CPU filters have moved to GPU. A system-wide GPU percentage does not attribute work to FFmpeg. The installed `h264_videotoolbox` defaults to `allow_sw=false`; preserve that or set it explicitly when hardware-only encoding is required.

@@ -60,6 +60,8 @@ Carry this brief into every revision of the Seattle / Olympic / North Cascades t
 ## Dynamic selection revision (v29)
 
 - Subsequent subtitle preference: omit calendar dates and years from on-screen text. Keep place names and useful descriptions; the summer theme can remain. This applies to opening text as well as location slates.
+- Subsequent motion preference: stabilize only shots with actual jitter, with matched playback review. Keep intentional pans and rotations. Reject takeoff stabilization when foreground parallax worsens the result; apply bounded translation only to the Space Needle flyover and Seattle city close view.
+- Subsequent wildlife preference: use the sea-otter source's actual approach from 2.4–17.4 seconds over six output seconds, keep its dive, and remove the added digital zoom. Do not claim sharpening can restore missing source detail.
 
 - A shot can satisfy subject coverage and still fail pacing. The nearly fixed 0142 panorama was rejected after preview feedback; speed alone cannot create a camera move in a stationary source. Preserve wide Olympic summit coverage using 0137 source 132–141s at 1.5x, a real horizontal sweep into the snowy chain, alongside the closer peaks.
 - Recompare all four nighttime originals: 0080, 0081, 0083, and 0087. 0081 is a short, blurred turn; 0087 has a broad skyline similar to 0080; 0083 offers a distinct rotating street-grid-to-oblique-city reveal. Use 0083 source 26–40s over 6.5 output seconds before the complete Space Needle pass over six seconds.
