@@ -29,6 +29,7 @@ def _license_credit(value: str) -> str:
 
 def build_filtergraph(project: Project) -> str:
     width, height = project.width, project.height
+    working_format = "yuv420p10le" if project.encoder == "hevc_videotoolbox" else "yuv420p"
     scale_factor = min(width / 3840, height / 2160)
     px = lambda value: max(1, round(value * scale_factor))
     image_height = round(width / project.aspect_ratio)
@@ -53,12 +54,12 @@ def build_filtergraph(project: Project) -> str:
         )
         if shot.vertical_layout == "portrait_blur":
             filters.extend([
-                f"[{i}:v]{timed_grade},split=2[bgraw{i}][fgraw{i}]",
+                f"[{i}:v]format={working_format},{timed_grade},split=2[bgraw{i}][fgraw{i}]",
                 f"[bgraw{i}]scale={width}:{height}:force_original_aspect_ratio=increase,"
-                f"crop={width}:{height},boxblur=28:10,eq=brightness=-0.10:saturation=0.72[bg{i}]",
+                f"crop={width}:{height},boxblur=28:10,eq=brightness=-0.10:saturation=0.72,format={working_format}[bg{i}]",
                 f"[fgraw{i}]scale={px(1440)}:-2:flags=lanczos,crop={px(1440)}:{height}:0:(in_h-{height})/2[fg{i}]",
                 f"[bg{i}][fg{i}]overlay=(W-w)/2:(H-h)/2,vignette=PI/8,"
-                f"unsharp=5:5:{_f(grade.sharpness)}:3:3:0.0,fps={project.fps},setsar=1,format=yuv420p[v{i}]",
+                f"unsharp=5:5:{_f(grade.sharpness)}:3:3:0.0,fps={project.fps},setsar=1,format={working_format}[v{i}]",
             ])
         else:
             if shot.zoom_end is not None and shot.zoom_end != shot.zoom:
@@ -84,8 +85,8 @@ def build_filtergraph(project: Project) -> str:
                     f"crop={width}:{image_height}:0:{y}"
                 )
             filters.append(
-                f"[{i}:v]{timed_grade},{scale_crop},pad={width}:{height}:0:{crop_y}:black,"
-                f"vignette=PI/8,unsharp=5:5:{_f(grade.sharpness)}:3:3:0.0,fps={project.fps},setsar=1,format=yuv420p[v{i}]"
+                f"[{i}:v]format={working_format},{timed_grade},{scale_crop},pad={width}:{height}:0:{crop_y}:black,"
+                f"vignette=PI/8,unsharp=5:5:{_f(grade.sharpness)}:3:3:0.0,fps={project.fps},setsar=1,format={working_format}[v{i}]"
             )
 
     previous = "v0"
@@ -142,7 +143,7 @@ def build_filtergraph(project: Project) -> str:
     )
     filters.append(
         f"[{previous}]" + ",".join(overlays)
-        + f",fade=t=in:st=0:d=1.0,fade=t=out:st={_f(fade_out)}:d=0.85,format=yuv420p[outv]"
+        + f",fade=t=in:st=0:d=1.0,fade=t=out:st={_f(fade_out)}:d=0.85,format={working_format}[outv]"
     )
     audio_index = len(project.shots)
     filters.append(

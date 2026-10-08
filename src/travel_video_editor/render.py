@@ -25,14 +25,20 @@ class FFmpegRenderer:
             # requests Apple's hardware encoder.
             encoder_args = ["-c:v", project.encoder, "-allow_sw", "0", "-b:v", project.video_bitrate,
                             "-maxrate", project.video_bitrate, "-profile:v", "high", "-level:v", "5.1"]
+            pixel_format, codec_tag = "yuv420p", "avc1"
+        elif project.encoder == "hevc_videotoolbox":
+            encoder_args = ["-c:v", project.encoder, "-allow_sw", "0", "-b:v", project.video_bitrate,
+                            "-maxrate", project.video_bitrate, "-profile:v", "main10", "-level:v", "5.1"]
+            pixel_format, codec_tag = "p010le", "hvc1"
         else:
             encoder_args = ["-c:v", project.encoder, "-preset", project.preset, "-crf", str(project.crf),
                             "-threads", str(project.threads), "-profile:v", "high", "-level:v", "5.1"]
+            pixel_format, codec_tag = "yuv420p", "avc1"
         args += [
             "-filter_complex", build_filtergraph(project),
             "-map", "[outv]", "-map", "[outa]",
             *encoder_args,
-            "-tag:v", "avc1", "-pix_fmt", "yuv420p",
+            "-tag:v", codec_tag, "-pix_fmt", pixel_format,
             "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
             "-movflags", "+faststart", "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709",
             "-metadata", f"title={project.title}",

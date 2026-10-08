@@ -111,8 +111,8 @@ class Project:
                 raise ValueError(f"Crop center must be between 0 and 1 in shot {shot.file}")
         if self.threads < 1 or not 0 <= self.crf <= 51:
             raise ValueError("Invalid encoder settings")
-        if self.encoder not in {"libx264", "h264_videotoolbox"}:
-            raise ValueError("Unsupported video encoder; choose libx264 or h264_videotoolbox")
+        if self.encoder not in {"libx264", "h264_videotoolbox", "hevc_videotoolbox"}:
+            raise ValueError("Unsupported video encoder; choose libx264, h264_videotoolbox, or hevc_videotoolbox")
 
     @property
     def output_durations(self) -> list[float]:
