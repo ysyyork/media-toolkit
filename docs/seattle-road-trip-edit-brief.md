@@ -35,11 +35,14 @@ Carry this brief into every revision of the Seattle / Olympic / North Cascades t
 6. Only after the visual review passes, render the delivery at 3840x2160. Use hardware H.264 encoding at a high bitrate where available, verify the resulting codec/resolution/duration, decode the whole file, and inspect the final review sheet and full-resolution detail frames.
 7. Keep source footage untouched, preserve each revision under a descriptive name, and retain the project manifest alongside the reproducible toolkit workflow.
 
-## Review findings from the v11 cut
+## Review findings and later corrections
 
 - The source review covered 102 MP4s with a two-second sampling interval (2,455 sampled frames across 44 contact sheets); finalists were checked at full motion before their ranges were selected.
 - The v11 cut keeps the road-level takeoff from `DJI_20260619185954_0035_D.MP4`, the Space Needle night flyover, Bellevue, Olympic Coast otters and sea stacks, the horizontal bay movement, and the Mount Rainier view.
 - The otter source is distant and has limited fine detail. The edit uses a modest 1.38× push-in and a brighter local grade; do not push farther or claim sharpening restores detail absent from the source.
 - The golden-hour North Cascades valley needed a clearly visible lift in brightness and contrast. Its indie-rock example now includes a local grade (contrast 1.22, brightness 0.045) while preserving the sunset highlights and forest texture; compare the same frame before and after rather than assuming a numeric adjustment will be visible on every display.
+- That lift alone did not remove the capture's atmospheric veil. The current revision runs `tripdehaze` on only the 3.5-second source range, protects sky/highlights, and adds a local gamma lift afterward so the forest does not become too dark. Review the whole range for temporal consistency and check the same frame before/after; reduce dehaze strength if the ridge or foliage develops halos.
+- Avoid FFmpeg's very short `dissolve` transitions: its pixel-speckled reveal can look like a brief glitch. Use a smooth `fade` for normal cuts and `fadeblack` between the golden-hour valley and Seattle night skyline.
+- The latest checked render is `Seattle_Summer_Road_Trip_Artistic_Color_v17.mp4` (3840×2160, 30 fps, 62.1 seconds, H.264/AAC via VideoToolbox). The dehazed valley frame was reviewed at full resolution; its forest shadow lift is visible while the sunset remains textured. The complete file decodes without errors.
 - The final sequence holds the Mount Rainier view, then uses the opening five seconds of `DJI_20260621144304_0247_D.MP4` at 1.75× for a quicker Lake Washington aerial reveal. This is a rising/forward reveal, not a strong gimbal tilt-up; the cut description should remain accurate.
-- The delivered v11 render is 3840×2160, 30 fps H.264/AAC, about 64 seconds, encoded with Apple VideoToolbox. The 720p preview uses the same composition and grade for review.
+- The original v11 render was 3840×2160, 30 fps H.264/AAC, about 64 seconds, encoded with Apple VideoToolbox. The current preview uses the same composition and grade at 720p for review.

@@ -16,13 +16,14 @@ Use this workflow for travel films made with `tripcut`. It captures the practica
 - Preserve user-requested highlights in `required_shots`. After every timeline change, check that the required moments remain and that their selected ranges actually show the requested subject.
 - Choose in/out points around the useful action, not just the prettiest still. Watch a few seconds before and after the proposed cut.
 - Use speed changes to improve rhythm or make a real camera move read more clearly. Check that faster motion still looks intentional and does not make the shot feel like a mistake.
-- Use dissolves only where they help the visual transition. Review the midpoint of every transition for double images, ghosted titles, or a subject that briefly disappears.
+- Prefer a short `fade` for ordinary scene changes. FFmpeg's `dissolve` uses a speckled pixel reveal, which can look like noise when used for a very short transition; reserve it for a deliberate stylized beat. Use `fadeblack` when moving between very different lighting or time-of-day scenes. Review transition midpoints for clutter, ghosted titles, or a subject that briefly disappears.
 - Match the edit length and ending to the music. Do not leave picture running after the music has ended; inspect the actual last frames and listen through the fade.
 
 ## 3. Grade each shot against its own exposure
 
 - Establish a coherent overall look, then make shot-level corrections. Do not apply one brightness or contrast value blindly across sunny coast, forest shadows, daylight city, and night footage.
 - When the user asks for a visible adjustment, compare before/after frames at the same size and display conditions. The requested change should be plainly visible while important highlight and shadow detail remains.
+- If a shot still looks veiled after exposure and contrast are balanced, treat haze as a separate, shot-level problem. Try `tripdehaze` on only the selected source range; inspect the sky, warm highlights, distant ridges, and forest shadows for clipped whites, color shifts, halos, or flicker before keeping it.
 - Check skies and clouds for clipping, forests for crushed shadows, coast foam for lost texture, water for unnatural cyan/blue shifts, and night scenes for noise and brittle sharpening.
 - Use moderate, source-aware sharpening. A small wildlife subject may benefit from a modest push-in, but sharpening cannot restore detail that the source never captured. Do not enlarge a distant subject until it looks soft or pixelated.
 - Tune nearby shots as a sequence. Check exposure, white balance, saturation, and contrast across the cut so the grade feels consistent without flattening different lighting conditions.
@@ -51,4 +52,3 @@ Use this workflow for travel films made with `tripcut`. It captures the practica
 - Distinguish a true camera tilt from a rising/forward reveal, a pan, or a static aerial. Describe the motion the source actually contains.
 - Report the actual output resolution and encoder used. Hardware acceleration does not mean every filter ran on the GPU.
 - Link the selected final by full path and identify it as the final version. Summarize major choices and mention any visible limitation, such as distant wildlife detail.
-

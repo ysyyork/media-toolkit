@@ -20,6 +20,14 @@ Install the optional photo-processing dependencies when using `tripimage`:
 python3 -m pip install '.[image]'
 ```
 
+The same optional dependencies provide `tripdehaze`, a restrained preprocessing command for reducing haze in one selected video range. It uses OpenCV and FFmpeg; on supported Macs, the intermediate is encoded with VideoToolbox.
+
+```sh
+tripdehaze source.mp4 output/dehazed-range.mp4 --start 16 --duration 3.5
+```
+
+Use the resulting intermediate for that shot in the edit manifest, then make a preview and inspect sky, sunlit detail, dark foliage, and motion for halos or frame-to-frame pumping. This is a shot-level correction, not a global filter; lower `--strength` if it looks harsh.
+
 For automatic ADE20K region masks with a compatible MaskFormer ONNX export, also install:
 
 ```sh
