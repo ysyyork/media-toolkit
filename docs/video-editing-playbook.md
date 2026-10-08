@@ -19,6 +19,14 @@ Use this workflow for travel films made with `tripcut`. It captures the practica
 - Prefer a short `fade` for ordinary scene changes. FFmpeg's `dissolve` uses a speckled pixel reveal, which can look like noise when used for a very short transition; reserve it for a deliberate stylized beat. Use `fadeblack` when moving between very different lighting or time-of-day scenes. Review transition midpoints for clutter, ghosted titles, or a subject that briefly disappears.
 - Match the edit length and ending to the music. Do not leave picture running after the music has ended; inspect the actual last frames and listen through the fade.
 
+### When the soundtrack comes from a video or screen recording
+
+- Extract the requested audio range into a project-local audio file before rendering. Keep the original recording untouched and keep extracted media out of the public repository. For example: `ffmpeg -i screen-recording.mp4 -map 0:a:0 -vn -t 78 -c:a copy soundtrack.m4a`.
+- Check for leading silence and confirm the useful start/end of the track. Set `music_start` to the chosen source offset and make the timeline end at the intended audio endpoint; do not assume the source video's duration is the music duration.
+- Calculate runtime from the actual shot durations after speed changes, minus transition overlaps. To extend a cut, first look for useful additional motion in selected clips or strong unused shots. Lengthen only shots whose movement can sustain it; do not freeze frames or slow every shot to fill the track.
+- Set the video and audio fades to land together, then play the full preview with sound. Check that the music is not clipped at the start, that its ending feels deliberate, and that the last image does not outlive the requested audio segment.
+- Record the source recording, extracted audio range, timeline duration, and soundtrack credit/provenance in the project manifest or delivery notes.
+
 ## 3. Grade each shot against its own exposure
 
 - Establish a coherent overall look, then make shot-level corrections. Do not apply one brightness or contrast value blindly across sunny coast, forest shadows, daylight city, and night footage.
