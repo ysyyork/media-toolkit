@@ -73,3 +73,9 @@ Run `tripcut project.json --motion-review --jobs 3` to generate source-time-labe
 ### Movement as a selection criterion
 
 Assess actual subject displacement and parallax over the proposed output duration. Dense frames with a readable subject do not prove the shot has useful movement. Review a longer source interval and consider time compression: a 23-second real pan can occupy five seconds, while accelerating a fixed camera may still appear static. Compare the sped-up preview at its delivery frame rate for abrupt yaw, stutter, or premature exits. Prefer an actual reveal to an invented digital move; retain a shorter scenic hold where the sequence needs breathing room. Compare all nighttime takes by movement, framing, lighting, and distinctiveness instead of treating one famous landmark as the only highlight.
+
+### Local playback and soundtrack limits
+
+Use `tripreview /absolute/path/to/output --port 8769` for a loopback-only browser media review server with HTTP byte ranges. Native video seeking requires range support; Python's basic HTTP server may report no seekable range and silently restart playback. Confirm the player time after seeking. Stop the server after review.
+
+Probe the full user-provided audio before fixing the edit duration. If the user permits a longer cut, use the available recording rather than reusing an earlier trimmed excerpt. Check its tail for silence, retain complete source movement, and fade picture and music together before the recording ends. Do not claim a longer soundtrack exists beyond the provided file.

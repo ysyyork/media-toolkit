@@ -16,6 +16,7 @@ dependencies = []
 tripcut = "travel_video_editor.cli:main"
 tripimage = "travel_video_editor.image_cli:main"
 tripdehaze = "travel_video_editor.dehaze_clip:main"
+tripreview = "travel_video_editor.review_server:main"
 
 [project.optional-dependencies]
 image = ["numpy>=1.26", "Pillow>=10", "opencv-python-headless>=4.9"]
